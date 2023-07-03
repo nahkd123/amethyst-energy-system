@@ -1,9 +1,4 @@
-# Fabric Example Mod
+# Amethyst Energy System (AES)
+_(Not to be confused with symmetrical encryption algorithm)_
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+The solid idea of this mod is to provide amethyst more uses.

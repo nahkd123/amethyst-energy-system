@@ -1,26 +1,22 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "amethystenergy",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Amethyst Energy System",
+	"description": "Give amethyst more uses",
 	"authors": [
-		"Me!"
+		"nahkd123"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/nahkd123",
+		"sources": "https://github.com/nahkd123/amethyst-energy-system/"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "GPL-3.0-or-later",
+	"icon": "assets/amethystenergy/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.example.ExampleMod"
-		],
-		"client": [
-			"com.example.ExampleModClient"
-		]
+		"main": ["me.nahkd.amethystenergy.AmethystEnergy"],
+		"client": ["me.nahkd.amethystenergy.AmethystEnergyClient"]
 	},
 	"mixins": [
 		"modid.mixins.json",
@@ -34,8 +30,5 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
