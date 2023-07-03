@@ -31,14 +31,14 @@ public class MagicDurabilityModule extends Module {
 	@Override
 	public void appendModuleDescription(ItemStack stack, int quality, NbtCompound moduleData, Consumer<Text> appender) {
 		appender.accept(Text.literal("Redirect durability usage to energy"));
-		appender.accept(Text.literal("module at \u26a1 0.10 for each durability"));
+		appender.accept(Text.literal("module at \u26a1 0.20 for each durability"));
 		appender.accept(Text.literal("point."));
 	}
 
 	@Override
 	public void onItemDamage(ModuleUseContext ctx, NbtCompound moduleData, int quality) {
 		while (ctx.durabilityUse > 0) {
-			if (ctx.addEnergyCost(0.1f)) {
+			if (ctx.addEnergyCost(0.2f)) {
 				ctx.durabilityUse--;
 			} else {
 				break;
