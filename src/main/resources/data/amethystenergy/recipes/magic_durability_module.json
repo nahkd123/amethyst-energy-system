@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AEA",
+        "DTD",
+        "AEA"
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:handle_module_template" },
+        "D": { "item": "minecraft:diamond" },
+        "E": { "item": "minecraft:ender_pearl" },
+        "A": { "item": "minecraft:amethyst_shard" }
+    },
+    "result": {
+        "item": "amethystenergy:magic_durability_module",
+        "count": 1
+    }
+}
