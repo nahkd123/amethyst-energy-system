@@ -12,3 +12,6 @@ An universal workbench for everything related to AES.
 - Energy Module: Stores Amethyst Energy (AE). Each Amethyst Shard provides 1 AE.
 - Glowing Blade (partially implemented): An attempt to mimic a sword from the hit game about the legend. I guess you already know what game that is.
 - _And more in the future!_
+
+## TODOs
+- [ ] Module texture overlay thingy.
