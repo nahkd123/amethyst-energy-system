@@ -105,5 +105,7 @@ public class GlowingBladeModule extends Module implements ToolUsable {
 			zhoop.setBladeDamage(damage);
 			user.getWorld().spawnEntity(zhoop);
 		}
+
+		ctx.durabilityUse++;
 	}
 }
