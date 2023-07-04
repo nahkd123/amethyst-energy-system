@@ -9,10 +9,8 @@ import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
-import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;

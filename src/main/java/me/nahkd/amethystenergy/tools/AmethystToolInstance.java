@@ -17,13 +17,11 @@ import net.minecraft.nbt.NbtElement;
 public class AmethystToolInstance implements AmethystEnergyInterface {
 	private ItemStack stack;
 	private AmethystTool tool;
-	private boolean mutateNbt;
 	private NbtCompound moduleSlots;
 
 	public AmethystToolInstance(ItemStack stack, boolean mutateNbt) {
 		this.stack = stack;
 		this.tool = (AmethystTool) stack.getItem();
-		this.mutateNbt = mutateNbt;
 
 		var nbt = mutateNbt? stack.getOrCreateNbt() : stack.hasNbt()? stack.getNbt() : new NbtCompound();
 		moduleSlots = nbt.contains(AmethystTool.TAG_MODULES, NbtElement.COMPOUND_TYPE)? nbt.getCompound(AmethystTool.TAG_MODULES) : tool.createEmptySlots();

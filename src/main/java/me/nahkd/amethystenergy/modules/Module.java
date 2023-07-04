@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
-import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

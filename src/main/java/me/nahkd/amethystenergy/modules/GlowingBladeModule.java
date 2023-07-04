@@ -3,17 +3,14 @@ package me.nahkd.amethystenergy.modules;
 import java.util.function.Consumer;
 
 import me.nahkd.amethystenergy.AEUtils;
-import me.nahkd.amethystenergy.entities.AmethystEntities;
 import me.nahkd.amethystenergy.entities.ZhoopEntity;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
 import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.UseAction;
