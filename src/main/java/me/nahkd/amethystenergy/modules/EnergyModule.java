@@ -41,12 +41,11 @@ public class EnergyModule extends Module {
 	@Override
 	public Text getDisplayTextOnTools(int quality, NbtCompound moduleData) {
 		var energy = moduleData.getFloat(TAG_ENERGY);
-		return Text.literal("\u26a1 (")
+		return Text.literal("\u26a1 ")
 				.styled(s -> s.withColor(Formatting.DARK_PURPLE))
 				.append(Text.literal(AEUtils.formatEnergy(energy)).styled(s -> s.withColor(Formatting.LIGHT_PURPLE)))
 				.append("/")
-				.append(Text.literal(AEUtils.formatEnergy(getMaxEnergy(quality)) + " AE").styled(s -> s.withColor(Formatting.LIGHT_PURPLE)))
-				.append(")");
+				.append(Text.literal(AEUtils.formatEnergy(getMaxEnergy(quality)) + " AE").styled(s -> s.withColor(Formatting.LIGHT_PURPLE)));
 	}
 
 	@Override

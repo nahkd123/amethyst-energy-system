@@ -36,9 +36,11 @@ public class MagicDurabilityModule extends Module {
 	}
 
 	@Override
-	public void onItemDamage(ModuleUseContext ctx, NbtCompound moduleData, int quality) {
+	public void onItemDamage(ModuleUseContext ctx, ModuleInstance module) {
+		var instance = ctx.getToolInstance();
+
 		while (ctx.durabilityUse > 0) {
-			if (ctx.addEnergyCost(0.2f)) {
+			if (instance.useAmethystEnergy(0.2f)) {
 				ctx.durabilityUse--;
 			} else {
 				break;

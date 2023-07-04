@@ -1,6 +1,7 @@
 package me.nahkd.amethystenergy.modules.contexts;
 
 import me.nahkd.amethystenergy.tools.AmethystTool;
+import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.minecraft.item.ItemStack;
 
 public class ModuleEventContext {
@@ -18,5 +19,9 @@ public class ModuleEventContext {
 
 	public AmethystTool getToolType() {
 		return tool;
+	}
+
+	public AmethystToolInstance getToolInstance() {
+		return new AmethystToolInstance(stack, true);
 	}
 }

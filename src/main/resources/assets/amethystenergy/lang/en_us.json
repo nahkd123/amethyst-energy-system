@@ -7,5 +7,7 @@
     "item.amethystenergy.energy_module": "Energy Module",
     "item.amethystenergy.glowing_blade_module": "Glowing Blade Module",
 
-    "item.amethystenergy.amethyst_sword": "Amethyst Sword"
+    "item.amethystenergy.amethyst_sword": "Amethyst Sword",
+
+    "entity.amethystenergy.zhoop": "Funny Blade Sweep Thing"
 }

@@ -29,7 +29,7 @@ public class FeatherweightModule extends Module {
 	}
 
 	@Override
-	public void onApplyAttributes(ModuleAttributeContext ctx, NbtCompound moduleData, int quality) {
-		ctx.attackSpeed /= 1f + (quality / 100f) * 0.5f;
+	public void onApplyAttributes(ModuleAttributeContext ctx, ModuleInstance module) {
+		ctx.attackSpeed /= 1f + (module.getModuleQuality() / 100f) * 0.5f;
 	}
 }

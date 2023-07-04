@@ -6,11 +6,11 @@ import java.util.function.Consumer;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
+import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -44,10 +44,11 @@ public abstract class Module extends Item {
 	public boolean destroyOnRemoval() { return true; }
 	public boolean isCraftableModule() { return false; } // true if you want the module to be crafted
 	public int getIterationStage() { return ITERATION_STAGE_DEFAULT; }
+	public ModuleInstance initializeModuleInstance(int quality) { return new ModuleInstance(this, quality); }
 
-	public void onApplyAttributes(ModuleAttributeContext ctx, NbtCompound moduleData, int quality) {}
-	public void onItemDamage(ModuleUseContext ctx, NbtCompound moduleData, int quality) {}
-	public void onAttack(ModuleAttackContext ctx, NbtCompound moduleData, int quality) {}
+	public void onApplyAttributes(ModuleAttributeContext ctx, ModuleInstance instance) {}
+	public void onItemDamage(ModuleUseContext ctx, ModuleInstance instance) {}
+	public void onAttack(ModuleAttackContext ctx, ModuleInstance instance) {}
 
 	@Override
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
@@ -87,6 +88,11 @@ public abstract class Module extends Item {
 		}
 	}
 
+	@Override
+	public ItemStack getDefaultStack() {
+		return Module.createModuleItem(this, 1);
+	}
+
 	public Identifier getModuleId() {
 		var key = Registries.ITEM.getKey(this).orElse(null);
 		return key != null? key.getValue() : new Identifier("missingno");
@@ -103,17 +109,5 @@ public abstract class Module extends Item {
 		ItemStack stack = new ItemStack(type);
 		stack.setSubNbt(TAG_MODULE, type.createModuleNbt(quality));
 		return stack;
-	}
-
-	public static Module getModuleType(NbtCompound moduleData) {
-		if (moduleData == null || !moduleData.contains(TAG_ID, NbtElement.STRING_TYPE)) return null;
-		var id = moduleData.getString(TAG_ID);
-		var item = Registries.ITEM.get(new Identifier(id));
-		return (item != null && item instanceof Module module)? module : null;
-	}
-
-	public static int getModuleQuality(NbtCompound moduleData) {
-		if (moduleData == null) return 0;
-		return moduleData.getInt(TAG_QUALITY);
 	}
 }

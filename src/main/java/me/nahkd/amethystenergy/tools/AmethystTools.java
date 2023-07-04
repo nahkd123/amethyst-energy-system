@@ -3,6 +3,7 @@ package me.nahkd.amethystenergy.tools;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -20,7 +21,7 @@ public class AmethystTools {
 			.build();
 
 	private static void register(String id, AmethystTool tool) {
-		Registry.register(Registries.ITEM, new Identifier("amethystenergy", id), tool);
+		Registry.register(Registries.ITEM, new Identifier("amethystenergy", id), (Item) tool);
 	}
 
 	public static void registerAll() {
