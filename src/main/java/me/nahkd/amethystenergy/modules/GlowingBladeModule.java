@@ -3,7 +3,6 @@ package me.nahkd.amethystenergy.modules;
 import java.util.function.Consumer;
 
 import me.nahkd.amethystenergy.AEUtils;
-import me.nahkd.amethystenergy.AmethystEnergy;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;

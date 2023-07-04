@@ -3,7 +3,6 @@ package me.nahkd.amethystenergy.tools;
 import java.util.Arrays;
 import java.util.List;
 
-import me.nahkd.amethystenergy.modules.Module;
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
@@ -14,7 +13,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
