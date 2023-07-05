@@ -269,4 +269,11 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 
 		super.onSlotClick(slotIndex, button, actionType, player);
 	}
+
+	@Override
+	public void onClosed(PlayerEntity player) {
+		super.onClosed(player);
+		if (!shards.isEmpty()) player.dropItem(shards.get(), true);
+		if (!tool.isEmpty()) player.dropItem(tool.get(), true);
+	}
 }
