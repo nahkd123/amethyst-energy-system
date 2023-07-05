@@ -13,7 +13,7 @@ public class EnergyModule extends Module {
 	public static final String TAG_ENERGY = "Energy";
 
 	public EnergyModule() {
-		super(new FabricItemSettings());
+		super(new FabricItemSettings().maxCount(1));
 	}
 
 	@Override

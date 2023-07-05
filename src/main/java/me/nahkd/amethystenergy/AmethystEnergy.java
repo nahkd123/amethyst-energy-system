@@ -5,6 +5,8 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import me.nahkd.amethystenergy.blocks.AESBlockEntities;
+import me.nahkd.amethystenergy.blocks.AESBlockScreenHandlers;
 import me.nahkd.amethystenergy.blocks.AESBlocks;
 import me.nahkd.amethystenergy.entities.AmethystEntities;
 import me.nahkd.amethystenergy.modules.Modules;
@@ -16,7 +18,11 @@ public class AmethystEnergy implements ModInitializer {
     @Override
     public void onInitialize() {
     	AESItemGroups.registerAll();
+
     	AESBlocks.registerAll();
+    	AESBlockEntities.registerAll();
+    	AESBlockScreenHandlers.registerAll();
+
     	AmethystTools.registerAll();
         Modules.registerAll();
         AmethystEntities.registerAll();

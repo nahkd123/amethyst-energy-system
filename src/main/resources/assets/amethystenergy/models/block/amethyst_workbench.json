@@ -1,0 +1,12 @@
+{
+    "parent": "minecraft:block/cube",
+    "textures": {
+        "down": "amethystenergy:block/condensed_amethyst_block",
+        "north": "amethystenergy:block/amethyst_workbench_side",
+        "east": "amethystenergy:block/amethyst_workbench_side",
+        "south": "amethystenergy:block/amethyst_workbench_side",
+        "west": "amethystenergy:block/amethyst_workbench_side",
+        "up": "amethystenergy:block/amethyst_workbench_top",
+        "particle": "amethystenergy:block/condensed_amethyst_block"
+    }
+}

@@ -42,6 +42,7 @@ public abstract class Module extends Item {
 
 	public boolean destroyOnRemoval() { return true; }
 	public boolean isCraftableModule() { return false; } // true if you want the module to be crafted
+	public int shardsApplyCost() { return 1; }
 	public int getIterationStage() { return ITERATION_STAGE_DEFAULT; }
 	public ModuleInstance initializeModuleInstance(int quality) { return new ModuleInstance(this, quality); }
 
@@ -75,10 +76,9 @@ public abstract class Module extends Item {
 			tooltip.add(Text.empty().append(text).styled(s -> s.withColor(Formatting.GRAY)));
 		});
 
-		if (destroyOnRemoval()) {
-			tooltip.add(Text.empty());
-			tooltip.add(Text.literal("Destroys when removed from item").styled(s -> s.withColor(Formatting.GRAY)));
-		}
+		tooltip.add(Text.empty());
+		if (destroyOnRemoval()) tooltip.add(Text.literal("Destroys when removed from item").styled(s -> s.withColor(Formatting.GRAY)));
+		tooltip.add(Text.literal("Apply cost: " + shardsApplyCost() + " shard" + (shardsApplyCost() == 1? "" : "s")).styled(s -> s.withColor(Formatting.GRAY)));
 
 		if (context.isCreative() && context.isAdvanced()) {
 			tooltip.add(Text.empty());

@@ -18,10 +18,12 @@ public class AmethystToolInstance implements AmethystEnergyInterface {
 	private ItemStack stack;
 	private AmethystTool tool;
 	private NbtCompound moduleSlots;
+	private boolean mutateNbt;
 
 	public AmethystToolInstance(ItemStack stack, boolean mutateNbt) {
 		this.stack = stack;
 		this.tool = (AmethystTool) stack.getItem();
+		this.mutateNbt = mutateNbt;
 
 		var nbt = mutateNbt? stack.getOrCreateNbt() : stack.hasNbt()? stack.getNbt() : new NbtCompound();
 		moduleSlots = nbt.contains(AmethystTool.TAG_MODULES, NbtElement.COMPOUND_TYPE)? nbt.getCompound(AmethystTool.TAG_MODULES) : tool.createEmptySlots();
@@ -41,7 +43,14 @@ public class AmethystToolInstance implements AmethystEnergyInterface {
 
 		List<ModuleInstance> modules = new ArrayList<>();
 		var modulesData = moduleSlots.getList(slot.slotName, NbtElement.COMPOUND_TYPE);
-		for (int i = 0; i < modulesData.size(); i++) modules.add(new ModuleInstance(modulesData.getCompound(i))); 
+		if (!moduleSlots.contains(slot.slotName, NbtElement.LIST_TYPE) && mutateNbt) moduleSlots.put(slot.slotName, modulesData);
+
+		for (int i = 0; i < tool.getSlots().get(slot); i++) {
+			var moduleData = modulesData.getCompound(i);
+			modules.add(new ModuleInstance(moduleData));
+			if (i >= modulesData.size() && mutateNbt) modulesData.add(moduleData);
+		}
+
 		return Collections.unmodifiableList(modules);
 	}
 
