@@ -32,6 +32,10 @@ public class EnergyModule extends Module {
 						.append("/")
 						.append(Text.literal(AEUtils.formatEnergy(getMaxEnergy(quality)) + " AE").styled(s -> s.withColor(Formatting.LIGHT_PURPLE))))
 				);
+		appender.accept(Text.empty());
+		appender.accept(Text.literal("Click on this module with Energized Amethyst"));
+		appender.accept(Text.literal("on your cursor in Amethyst Workbench"));
+		appender.accept(Text.literal("to charge."));
 	}
 
 	public float getMaxEnergy(int quality) {

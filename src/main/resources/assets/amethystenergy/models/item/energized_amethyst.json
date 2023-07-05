@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "amethystenergy:item/utilities/energized_amethyst"
+    }
+}

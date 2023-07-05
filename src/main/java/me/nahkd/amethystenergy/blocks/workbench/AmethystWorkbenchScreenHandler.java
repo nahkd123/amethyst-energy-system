@@ -5,10 +5,12 @@ import java.util.List;
 
 import me.nahkd.amethystenergy.blocks.AESBlockScreenHandlers;
 import me.nahkd.amethystenergy.inventory.StackHolder;
+import me.nahkd.amethystenergy.modules.EnergyModule;
 import me.nahkd.amethystenergy.modules.Module;
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.tools.AmethystTool;
 import me.nahkd.amethystenergy.tools.AmethystToolInstance;
+import me.nahkd.amethystenergy.utilities.AESUtilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -161,7 +163,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 
 		if (shards.isEmpty() || tool.isEmpty()) return;
 		var removingModule = stack == null || stack.isEmpty();
-		if (!removingModule && !(stack.getItem() instanceof Module moduleType)) return;
+		if (!removingModule && !(stack.getItem() instanceof Module)) return;
 		if (!removingModule && (!stack.hasNbt() || !stack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE))) return;
 
 		var moduleIdx = i - 2;
@@ -179,6 +181,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 		} else {
 			var moduleData = stack.getNbt().getCompound(Module.TAG_MODULE);
 			toolModuleInstance.getModuleData().copyFrom(moduleData);
+			if (stack.getItem() instanceof Module moduleType) toolModuleInstance.setModuleType(moduleType);
 		}
 
 		markDirty();
@@ -248,6 +251,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 			var cursorStack = getCursorStack();
 			var moduleIdx = slot.getIndex() - 2;
 			var slotType = moduleIdx < moduleSlotTypes.size()? moduleSlotTypes.get(moduleIdx) : null;
+			var moduleSlotIdx = moduleIdx < moduleSlotIndexes.size()? moduleSlotIndexes.get(moduleIdx) : -1;
 
 			if (moduleItem == null || moduleItem.isEmpty() || !(moduleItem.getItem() instanceof Module moduleType)) {
 				if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() instanceof Module cursorModuleType) {
@@ -258,6 +262,22 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 					shards.remove(cursorModuleType.shardsApplyCost());
 				}
 
+				return;
+			}
+
+			if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() == AESUtilities.ENERGIZED_AMETHYST) {
+				if (!(moduleItem.getItem() instanceof EnergyModule energyModule)) return;
+
+				// Charge
+				var energyModuleData = moduleItem.getOrCreateSubNbt(Module.TAG_MODULE);
+				var currentEnergy = energyModuleData.getFloat(EnergyModule.TAG_ENERGY);
+				var maxEnergy = energyModule.getMaxEnergy(energyModuleData.getInt(Module.TAG_QUALITY));
+				var useItems = Math.min((int) Math.floor(maxEnergy - currentEnergy), cursorStack.getCount());
+				var newEnergy = Math.min(currentEnergy + useItems, maxEnergy);
+
+				var toolInstance = new AmethystToolInstance(tool.get(), true);
+				toolInstance.getModules(slotType).get(moduleSlotIdx).getModuleData().putFloat(EnergyModule.TAG_ENERGY, newEnergy);
+				cursorStack.decrement(useItems);
 				return;
 			}
 

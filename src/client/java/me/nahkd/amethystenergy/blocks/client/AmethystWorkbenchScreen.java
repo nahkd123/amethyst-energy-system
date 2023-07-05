@@ -15,7 +15,8 @@ public class AmethystWorkbenchScreen extends HandledScreen<AmethystWorkbenchScre
 	private static final Map<ModuleSlot, int[]> SLOT_PLACEHOLDERS = Map.of(
 			ModuleSlot.HANDLE, new int[] { 176, 0 },
 			ModuleSlot.BINDING, new int[] { 176, 18 },
-			ModuleSlot.SWORD_BLADE, new int[] { 176, 36 }
+			ModuleSlot.SWORD_BLADE, new int[] { 176, 36 },
+			ModuleSlot.HOE_BLADE, new int[] { 176, 54 }
 			);
 
 	private AmethystWorkbenchScreenHandler handler;
@@ -38,7 +39,9 @@ public class AmethystWorkbenchScreen extends HandledScreen<AmethystWorkbenchScre
 			if (rect == null) rect = new int[] { 9, 51 };
 			var x = (i % 7) * 18 + 43;
 			var y = (i / 7) * 18 + 16;
+
 			ctx.drawTexture(TEXTURE, cornerX + x, cornerY + y, rect[0], rect[1], 18, 18);
+			ctx.drawText(textRenderer, "" + (slotIndex + 1), cornerX + x + 2, cornerY + y + 2, 0x303030, false);
 		}
 	}
 

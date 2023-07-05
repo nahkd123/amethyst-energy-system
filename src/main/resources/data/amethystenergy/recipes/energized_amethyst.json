@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GAG",
+        "ARA",
+        "GAG"
+    ],
+    "key": {
+        "G": { "item": "minecraft:glowstone_dust" },
+        "A": { "item": "minecraft:amethyst_shard" },
+        "R": { "item": "minecraft:redstone" }
+    },
+    "result": {
+        "item": "amethystenergy:energized_amethyst",
+        "count": 4
+    }
+}

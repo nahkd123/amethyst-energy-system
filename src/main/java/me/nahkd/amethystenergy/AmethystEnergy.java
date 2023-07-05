@@ -11,6 +11,7 @@ import me.nahkd.amethystenergy.blocks.AESBlocks;
 import me.nahkd.amethystenergy.entities.AmethystEntities;
 import me.nahkd.amethystenergy.modules.Modules;
 import me.nahkd.amethystenergy.tools.AmethystTools;
+import me.nahkd.amethystenergy.utilities.AESUtilities;
 
 public class AmethystEnergy implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("amethystenergy");
@@ -26,5 +27,6 @@ public class AmethystEnergy implements ModInitializer {
     	AmethystTools.registerAll();
         Modules.registerAll();
         AmethystEntities.registerAll();
+        AESUtilities.registerAll();
     }
 }
