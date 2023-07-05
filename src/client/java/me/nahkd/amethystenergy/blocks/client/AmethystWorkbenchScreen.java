@@ -35,6 +35,7 @@ public class AmethystWorkbenchScreen extends HandledScreen<AmethystWorkbenchScre
 			var slotType = handler.moduleSlotTypes.get(i);
 			var slotIndex = handler.moduleSlotIndexes.get(i);
 			var rect = SLOT_PLACEHOLDERS.get(slotType);
+			if (rect == null) rect = new int[] { 9, 51 };
 			var x = (i % 7) * 18 + 43;
 			var y = (i / 7) * 18 + 16;
 			ctx.drawTexture(TEXTURE, cornerX + x, cornerY + y, rect[0], rect[1], 18, 18);

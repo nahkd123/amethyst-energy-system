@@ -15,28 +15,29 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class AmethystSword extends SwordItem implements AmethystTool {
+public class AmethystHoe extends HoeItem implements AmethystTool {
 	private float attackSpeed;
 	private EnumMap<ModuleSlot, Integer> layout;
 
-	public AmethystSword(Settings settings) {
-		super(ToolMaterials.IRON, 3, -2.4f, settings);
-		this.attackSpeed = -2.4f;
+	public AmethystHoe(Settings settings) {
+		super(ToolMaterials.IRON, -2, -1.0f, settings);
+		this.attackSpeed = -1.0f;
 		this.layout = new EnumMap<>(ModuleSlot.class);
 		this.layout.put(ModuleSlot.HANDLE, 1);
 		this.layout.put(ModuleSlot.BINDING, 1);
-		this.layout.put(ModuleSlot.SWORD_BLADE, 1);
+		this.layout.put(ModuleSlot.HOE_BLADE, 1);
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class AmethystSword extends SwordItem implements AmethystTool {
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		var ctx = new ModuleAttackContext(stack, 1, target, attacker);
+		var ctx = new ModuleAttackContext(stack, 2, target, attacker);
 		var instance = ctx.getToolInstance();
 		instance.forEachModule(module -> module.getModuleType().onAttack(ctx, module));
 		amethystDamageItem(stack, attacker, ctx.durabilityUse);
@@ -87,13 +88,8 @@ public class AmethystSword extends SwordItem implements AmethystTool {
 
 	@Override
 	public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-		if (state.getHardness(world, pos) != 0.0f) amethystDamageItem(stack, miner, 2);
+		if (!world.isClient && state.getHardness(world, pos) != 0.0f) amethystDamageItem(stack, miner, 1);
         return true;
-	}
-
-	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		return amethystUse(world, user, hand);
 	}
 
 	@Override
@@ -119,5 +115,24 @@ public class AmethystSword extends SwordItem implements AmethystTool {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		return amethystFinishUsing(stack, world, user);
+	}
+
+	@Override
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		var consumer = TILLING_ACTIONS.get(context.getWorld().getBlockState(context.getBlockPos()).getBlock());
+		if (consumer == null) return ActionResult.PASS;
+
+		if (consumer.getFirst().test(context)) {
+			context.getWorld().playSound(context.getPlayer(), context.getBlockPos(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1f, 1f);
+
+			if (context.getPlayer().getServer() != null) {
+				consumer.getSecond().accept(context);
+				if (context.getPlayer() != null) amethystDamageItem(context.getStack(), context.getPlayer(), 1);
+			}
+
+			return ActionResult.success(context.getPlayer().getServer() == null);
+		}
+
+		return ActionResult.PASS;
 	}
 }

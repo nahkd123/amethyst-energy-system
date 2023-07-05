@@ -8,18 +8,25 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
+import me.nahkd.amethystenergy.modules.ToolUsable;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
+import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public interface AmethystTool {
@@ -101,4 +108,88 @@ public interface AmethystTool {
 
         return null;
     }
+
+	default void amethystDamageItem(ItemStack stack, LivingEntity user, int amount) {
+		var ctx = new ModuleUseContext(stack, amount, user);
+		ctx.getToolInstance().forEachModule(module -> module.getModuleType().onItemDamage(ctx, module));
+        if (ctx.durabilityUse > 0) stack.damage(ctx.durabilityUse, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+	}
+
+	default TypedActionResult<ItemStack> amethystUse(World world, PlayerEntity user, Hand hand) {
+		var using = user.getStackInHand(hand);
+		var ctx = new ModuleUseContext(using, 0, user);
+		var instance = ctx.getToolInstance();
+		var found = false;
+
+		for (var module : instance.getAllModules()) {
+			if (module.getModuleType() instanceof ToolUsable toolModule) {
+				found = true;
+				toolModule.onUsingStart(ctx, module);
+			}
+		}
+
+		if (found) {
+			user.setCurrentHand(hand);
+			return TypedActionResult.consume(using);
+		}
+
+		return TypedActionResult.fail(using);
+	}
+
+	default int amethystGetMaxUseTime(ItemStack stack, int def) {
+		var instance = new AmethystToolInstance(stack, false);
+		var time = 0;
+
+		for (var module : instance.getAllModules()) {
+			if (module.getModuleType() instanceof ToolUsable toolModule) {
+				time += toolModule.getToolUseTicks(instance, module);
+			}
+		}
+
+		if (time > 0) return time;
+		return def;
+	}
+
+	default UseAction amethystUseAction(ItemStack stack, UseAction def) {
+		var instance = new AmethystToolInstance(stack, false);
+
+		for (var module : instance.getAllModules()) {
+			if (module.getModuleType() instanceof ToolUsable toolModule) {
+				toolModule.getToolUseAction(instance, module);
+			}
+		}
+
+		return def;
+	}
+
+	default void amethystUsageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+		var ctx = new ModuleUseContext(stack, 0, user);
+		var instance = new AmethystToolInstance(stack, true);
+		instance.forEachModule(module -> {
+			if (module.getModuleType() instanceof ToolUsable toolModule) toolModule.onUsingTick(ctx, module, remainingUseTicks);
+		});
+
+		amethystDamageItem(stack, user, ctx.durabilityUse);
+	}
+
+	default void amethystStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+		var ctx = new ModuleUseContext(stack, 0, user);
+		var instance = new AmethystToolInstance(stack, true);
+		instance.forEachModule(module -> {
+			if (module.getModuleType() instanceof ToolUsable toolModule) toolModule.onUsingInterrupt(ctx, module);
+		});
+
+		amethystDamageItem(stack, user, ctx.durabilityUse);
+	}
+
+	default ItemStack amethystFinishUsing(ItemStack stack, World world, LivingEntity user) {
+		var ctx = new ModuleUseContext(stack, 0, user);
+		var instance = new AmethystToolInstance(stack, true);
+		instance.forEachModule(module -> {
+			if (module.getModuleType() instanceof ToolUsable toolModule) toolModule.onUsingFinish(ctx, module);
+		});
+
+		amethystDamageItem(stack, user, ctx.durabilityUse);
+		return stack;
+	}
 }

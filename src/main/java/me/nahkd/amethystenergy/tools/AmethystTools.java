@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class AmethystTools {
 	public static final AmethystSword SWORD = new AmethystSword(new FabricItemSettings().maxDamage(350));
+	public static final AmethystHoe HOE = new AmethystHoe(new FabricItemSettings().maxDamage(350));
 
 	private static void register(String id, AmethystTool tool) {
 		Registry.register(Registries.ITEM, new Identifier("amethystenergy", id), (Item) tool);
@@ -16,9 +17,11 @@ public class AmethystTools {
 
 	public static void registerAll() {
 		register("amethyst_sword", SWORD);
+		register("amethyst_hoe", HOE);
 	}
 
 	public static void addToGroup(FabricItemGroupEntries entries) {
 		entries.add(SWORD);
+		entries.add(HOE);
 	}
 }
