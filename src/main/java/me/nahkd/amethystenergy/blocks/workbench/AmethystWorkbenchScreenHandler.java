@@ -246,10 +246,14 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 		if (slot.inventory == this && slot.getIndex() >= 2) {
 			var moduleItem = getStack(slot.getIndex());
 			var cursorStack = getCursorStack();
+			var moduleIdx = slot.getIndex() - 2;
+			var slotType = moduleIdx < moduleSlotTypes.size()? moduleSlotTypes.get(moduleIdx) : null;
 
 			if (moduleItem == null || moduleItem.isEmpty() || !(moduleItem.getItem() instanceof Module moduleType)) {
 				if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() instanceof Module cursorModuleType) {
 					if (shards.isEmpty() || shards.get().getCount() < cursorModuleType.shardsApplyCost()) return;
+					if (slotType != null && cursorModuleType.getModuleSlot() != slotType) return;
+
 					super.onSlotClick(slotIndex, button, actionType, player);
 					shards.remove(cursorModuleType.shardsApplyCost());
 				}

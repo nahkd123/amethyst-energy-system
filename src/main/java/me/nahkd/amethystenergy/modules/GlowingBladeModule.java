@@ -42,7 +42,7 @@ public class GlowingBladeModule extends Module implements ToolUsable {
 	public float getBonusDamage(int quality) { return (quality / 100f) * 2f; }
 	public float getEnergyCost(int quality) { return quality / 1000f; }
 
-	public float getSpecialAttackDamage(int quality) { return 6f + (quality / 100f) * 9f; }
+	public float getSpecialAttackDamage(int quality) { return 6f + (quality / 100f) * 12f; }
 	public float getSpecialAttackEnergyCost(int quality) { return quality / 20f; }
 
 	@Override

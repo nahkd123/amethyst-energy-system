@@ -25,6 +25,7 @@ public class Modules {
 	public static final EnergyModule ENERGY = new EnergyModule();
 
 	public static final GlowingBladeModule GLOWING_BLADE = new GlowingBladeModule();
+	public static final SoulstealerModule SOULSTEALER = new SoulstealerModule();
 
 	private static void register(String id, Module module) {
 		Registry.register(Registries.ITEM, new Identifier("amethystenergy", id + "_module"), module);
@@ -48,5 +49,6 @@ public class Modules {
 		register("energy", ENERGY);
 
 		register("glowing_blade", GLOWING_BLADE);
+		register("soulstealer", SOULSTEALER);
 	}
 }
