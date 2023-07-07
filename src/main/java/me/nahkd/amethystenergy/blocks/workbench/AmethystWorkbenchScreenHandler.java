@@ -222,6 +222,26 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 				stack.decrement(useItems);
 			}
 
+			if (stack.getItem() instanceof Module moduleType) {
+				var toolInstance = new AmethystToolInstance(tool.get(), true);
+				var modules = toolInstance.getModules(moduleType.getModuleSlot());
+				if (!stack.hasNbt() || !stack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE) || modules.size() == 0) return ItemStack.EMPTY;
+				if (shards.isEmpty() || shards.get().getCount() < moduleType.shardsApplyCost()) return ItemStack.EMPTY;
+
+				for (int i = 0; i < modules.size(); i++) {
+					var moduleInstance = modules.get(i);
+
+					if (moduleInstance.isEmpty()) {
+						moduleInstance.getModuleData().copyFrom(stack.getOrCreateSubNbt(Module.TAG_MODULE));
+						stack.decrement(1);
+						var shardsStack = shards.get();
+						shardsStack.decrement(moduleType.shardsApplyCost());
+						shards.set(shardsStack);
+						break;
+					}
+				}
+			}
+
 			markDirty();
 		} else {
 			if (!slot.hasStack()) return ItemStack.EMPTY;
