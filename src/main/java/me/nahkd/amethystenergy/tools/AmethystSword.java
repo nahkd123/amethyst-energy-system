@@ -30,9 +30,9 @@ public class AmethystSword extends SwordItem implements AmethystTool {
 	private float attackSpeed;
 	private EnumMap<ModuleSlot, Integer> layout;
 
-	public AmethystSword(Settings settings) {
-		super(ToolMaterials.IRON, 3, -2.4f, settings);
-		this.attackSpeed = -2.4f;
+	public AmethystSword(Settings settings, int attackDamage, float attackSpeed) {
+		super(ToolMaterials.IRON, attackDamage, attackSpeed, settings);
+		this.attackSpeed = attackSpeed;
 		this.layout = new EnumMap<>(ModuleSlot.class);
 		this.layout.put(ModuleSlot.HANDLE, 1);
 		this.layout.put(ModuleSlot.BINDING, 1);

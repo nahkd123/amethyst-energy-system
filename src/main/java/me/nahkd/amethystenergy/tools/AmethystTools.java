@@ -8,8 +8,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class AmethystTools {
-	public static final AmethystSword SWORD = new AmethystSword(new FabricItemSettings().maxDamage(350));
-	public static final AmethystHoe HOE = new AmethystHoe(new FabricItemSettings().maxDamage(350));
+	private static final int AMETHYST_TOOLS_DURABILITY = 350;
+
+	public static final AmethystSword SWORD = new AmethystSword(new FabricItemSettings().maxDamage(AMETHYST_TOOLS_DURABILITY), 3, -2.4f);
+	public static final AmethystPickaxe PICKAXE = new AmethystPickaxe(new FabricItemSettings().maxDamage(AMETHYST_TOOLS_DURABILITY), 1, -2.8f);
+	public static final AmethystHoe HOE = new AmethystHoe(new FabricItemSettings().maxDamage(AMETHYST_TOOLS_DURABILITY), -2, -1.0f);
 
 	private static void register(String id, AmethystTool tool) {
 		Registry.register(Registries.ITEM, AmethystEnergy.id(id), (Item) tool);
@@ -17,11 +20,13 @@ public class AmethystTools {
 
 	public static void registerAll() {
 		register("amethyst_sword", SWORD);
+		register("amethyst_pickaxe", PICKAXE);
 		register("amethyst_hoe", HOE);
 	}
 
 	public static void addToGroup(FabricItemGroupEntries entries) {
 		entries.add(SWORD);
+		entries.add(PICKAXE);
 		entries.add(HOE);
 	}
 }

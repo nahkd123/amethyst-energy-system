@@ -15,29 +15,25 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class AmethystHoe extends HoeItem implements AmethystTool {
+public class AmethystPickaxe extends PickaxeItem implements AmethystTool {
 	private float attackSpeed;
 	private EnumMap<ModuleSlot, Integer> layout;
 
-	public AmethystHoe(Settings settings, int attackDamage, float attackSpeed) {
+	public AmethystPickaxe(Settings settings, int attackDamage, float attackSpeed) {
 		super(ToolMaterials.IRON, attackDamage, attackSpeed, settings);
 		this.attackSpeed = attackSpeed;
 		this.layout = new EnumMap<>(ModuleSlot.class);
 		this.layout.put(ModuleSlot.HANDLE, 1);
 		this.layout.put(ModuleSlot.BINDING, 1);
-		this.layout.put(ModuleSlot.HOE_BLADE, 1);
+		this.layout.put(ModuleSlot.PICKAXE_HEAD, 1);
 	}
 
 	@Override
@@ -115,24 +111,5 @@ public class AmethystHoe extends HoeItem implements AmethystTool {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		return amethystFinishUsing(stack, world, user);
-	}
-
-	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		var consumer = TILLING_ACTIONS.get(context.getWorld().getBlockState(context.getBlockPos()).getBlock());
-		if (consumer == null) return ActionResult.PASS;
-
-		if (consumer.getFirst().test(context)) {
-			context.getWorld().playSound(context.getPlayer(), context.getBlockPos(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1f, 1f);
-
-			if (context.getPlayer().getServer() != null) {
-				consumer.getSecond().accept(context);
-				if (context.getPlayer() != null) amethystDamageItem(context.getStack(), context.getPlayer(), 1);
-			}
-
-			return ActionResult.success(context.getPlayer().getServer() == null);
-		}
-
-		return ActionResult.PASS;
 	}
 }
