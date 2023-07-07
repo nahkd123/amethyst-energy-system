@@ -210,6 +210,18 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 				if (tool.insertStack(stack)) slot.setStack(ItemStack.EMPTY);
 			}
 
+			if (stack.getItem() == AESUtilities.ENERGIZED_AMETHYST) {
+				if (tool.isEmpty()) return ItemStack.EMPTY;
+				var toolInstance = new AmethystToolInstance(tool.get(), true);
+				var currentEnergy = toolInstance.getCurrentAmethystEnergy();
+				var maxEnergy = toolInstance.getMaxAmethystEnergy();
+				var useItems = Math.min((int) Math.floor(maxEnergy - currentEnergy), stack.getCount());
+				var newEnergy = Math.min(currentEnergy + useItems, maxEnergy);
+
+				toolInstance.setCurrentAmethystEnergy(newEnergy);
+				stack.decrement(useItems);
+			}
+
 			markDirty();
 		} else {
 			if (!slot.hasStack()) return ItemStack.EMPTY;
