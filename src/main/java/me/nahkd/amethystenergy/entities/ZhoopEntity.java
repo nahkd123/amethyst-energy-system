@@ -7,7 +7,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult.Type;
@@ -99,7 +98,7 @@ public class ZhoopEntity extends ProjectileEntity {
 			onCollision(hitResult);
 		}
 
-		getWorld().addParticle(ParticleTypes.SWEEP_ATTACK, true, getX(), getY(), getZ(), 0, 0, 0);
+		// getWorld().addParticle(ParticleTypes.SWEEP_ATTACK, true, getX(), getY(), getZ(), 0, 0, 0);
 		if (timeTicked++ > MAX_TICK) kill();
 	}
 }
