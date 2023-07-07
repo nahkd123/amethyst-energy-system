@@ -1,6 +1,7 @@
 package me.nahkd.amethystenergy;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,8 @@ import me.nahkd.amethystenergy.tools.AmethystTools;
 import me.nahkd.amethystenergy.utilities.AESUtilities;
 
 public class AmethystEnergy implements ModInitializer {
-    public static final Logger LOGGER = LoggerFactory.getLogger("amethystenergy");
+	public static final String MODID = "amethystenergy";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
     @Override
     public void onInitialize() {
@@ -28,5 +30,9 @@ public class AmethystEnergy implements ModInitializer {
         Modules.registerAll();
         AmethystEntities.registerAll();
         AESUtilities.registerAll();
+    }
+   
+    public static Identifier id(String id) {
+    	return new Identifier(MODID, id);
     }
 }

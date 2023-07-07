@@ -12,7 +12,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 public class AESItemGroups {
 	public static final ItemGroup UNIVERSAL = FabricItemGroup.builder()
@@ -26,13 +25,13 @@ public class AESItemGroups {
 			.build();
 
 	public static void registerAll() {
-		Registry.register(Registries.ITEM_GROUP, new Identifier("amethystenergy", "universal"), AESItemGroups.UNIVERSAL);
-		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier("amethystenergy", "universal"))).register(entries -> {
+		Registry.register(Registries.ITEM_GROUP, AmethystEnergy.id("universal"), AESItemGroups.UNIVERSAL);
+		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.getKey(), AmethystEnergy.id("universal"))).register(entries -> {
 			AESBlocks.addToGroup(entries);
 			AmethystTools.addToGroup(entries);
 			AESUtilities.addToGroup(entries);
 		});
 
-		Registry.register(Registries.ITEM_GROUP, new Identifier("amethystenergy", "modules"), AESItemGroups.MODULES);
+		Registry.register(Registries.ITEM_GROUP, AmethystEnergy.id("modules"), AESItemGroups.MODULES);
 	}
 }
