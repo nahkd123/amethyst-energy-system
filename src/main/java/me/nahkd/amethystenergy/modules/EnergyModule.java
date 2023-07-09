@@ -11,6 +11,7 @@ import net.minecraft.util.Formatting;
 
 public class EnergyModule extends Module {
 	public static final String TAG_ENERGY = "Energy";
+	public static final char SYMBOL = '\u26a1';
 
 	public EnergyModule() {
 		super(new FabricItemSettings().maxCount(1));
@@ -26,7 +27,7 @@ public class EnergyModule extends Module {
 		var energy = moduleData.getFloat(TAG_ENERGY);
 		appender.accept(Text.literal("Store amethyst energy (AE) for your tool"));
 		appender.accept(Text.literal("Current energy: ")
-				.append(Text.literal("\u26a1 ")
+				.append(Text.literal(SYMBOL + " ")
 						.styled(s -> s.withColor(Formatting.DARK_PURPLE))
 						.append(Text.literal(AEUtils.formatEnergy(energy)).styled(s -> s.withColor(Formatting.LIGHT_PURPLE)))
 						.append("/")
@@ -45,7 +46,7 @@ public class EnergyModule extends Module {
 	@Override
 	public Text getDisplayTextOnTools(int quality, NbtCompound moduleData) {
 		var energy = moduleData.getFloat(TAG_ENERGY);
-		return Text.literal("\u26a1 ")
+		return Text.literal(SYMBOL + " ")
 				.styled(s -> s.withColor(Formatting.DARK_PURPLE))
 				.append(Text.literal(AEUtils.formatEnergy(energy)).styled(s -> s.withColor(Formatting.LIGHT_PURPLE)))
 				.append("/")

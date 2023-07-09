@@ -31,10 +31,10 @@ public class GlowingBladeModule extends Module implements ToolUsable {
 		appender.accept(Text.empty());
 		appender.accept(Text.literal("When used properly, this blade module"));
 		appender.accept(Text.literal("deals " + AEUtils.formatStat(getBonusDamage(quality)) + " extra damage at a cost of"));
-		appender.accept(Text.literal("\u26a1 " + AEUtils.formatEnergy(getEnergyCost(quality)) + " or 1 extra durability point."));
+		appender.accept(Text.literal(EnergyModule.SYMBOL + " " + AEUtils.formatEnergy(getEnergyCost(quality)) + " or 1 extra durability point."));
 		appender.accept(Text.empty());
 		appender.accept(Text.literal("Hold RMB to charge special attack,"));
-		appender.accept(Text.literal("dealing up to " + AEUtils.formatStat(getSpecialAttackDamage(quality)) + " damage for \u26a1 " + AEUtils.formatEnergy(getSpecialAttackEnergyCost(quality)) + "."));
+		appender.accept(Text.literal("dealing up to " + AEUtils.formatStat(getSpecialAttackDamage(quality)) + " damage for " + EnergyModule.SYMBOL + " " + AEUtils.formatEnergy(getSpecialAttackEnergyCost(quality)) + "."));
 		appender.accept(Text.literal("Does not work if you hold your sword"));
 		appender.accept(Text.literal("or something else in offhand slot."));
 	}

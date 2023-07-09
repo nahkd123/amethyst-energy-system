@@ -31,7 +31,7 @@ public class MagicDurabilityModule extends Module {
 	@Override
 	public void appendModuleDescription(ItemStack stack, int quality, NbtCompound moduleData, Consumer<Text> appender) {
 		appender.accept(Text.literal("Redirect durability usage to energy"));
-		appender.accept(Text.literal("module at \u26a1 0.20 for each durability"));
+		appender.accept(Text.literal("module at " + EnergyModule.SYMBOL + " 0.20 for each durability"));
 		appender.accept(Text.literal("point."));
 	}
 
