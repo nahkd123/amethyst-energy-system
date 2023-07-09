@@ -17,7 +17,7 @@ import net.minecraft.util.UseAction;
 
 public class GlowingBladeModule extends Module implements ToolUsable {
 	public GlowingBladeModule() {
-		super(new FabricItemSettings());
+		super(new FabricItemSettings().maxCount(1));
 	}
 
 	@Override

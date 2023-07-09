@@ -20,7 +20,7 @@ public class DrillModule extends Module implements MiningModifier, ToolUsable {
 	private static final String TAG_ACTIVATED = "Activated";
 
 	public DrillModule() {
-		super(new FabricItemSettings());
+		super(new FabricItemSettings().maxCount(1));
 	}
 
 	@Override

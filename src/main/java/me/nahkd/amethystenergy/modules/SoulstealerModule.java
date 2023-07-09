@@ -13,7 +13,7 @@ import net.minecraft.util.Formatting;
 
 public class SoulstealerModule extends Module {
 	public SoulstealerModule() {
-		super(new FabricItemSettings());
+		super(new FabricItemSettings().maxCount(1));
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 
 public class MagicDurabilityModule extends Module {
 	public MagicDurabilityModule() {
-		super(new FabricItemSettings());
+		super(new FabricItemSettings().maxCount(1));
 	}
 
 	@Override
