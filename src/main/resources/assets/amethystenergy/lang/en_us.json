@@ -14,6 +14,7 @@
     "item.amethystenergy.glowing_blade_module": "Glowing Blade Module",
     "item.amethystenergy.soulstealer_module": "Soulstealer Module",
     "item.amethystenergy.drill_module": "Drill Module",
+    "item.amethystenergy.pickmerang_module": "Pickmerang Module",
 
     "item.amethystenergy.amethyst_sword": "Amethyst Sword",
     "item.amethystenergy.amethyst_shovel": "Amethyst Shovel",
@@ -27,5 +28,6 @@
     "block.amethystenergy.amethyst_glyph_block": "Amethyst Glyph Block",
     "block.amethystenergy.amethyst_workbench": "Amethyst Workbench",
 
-    "entity.amethystenergy.zhoop": "Funny Blade Sweep Thing"
+    "entity.amethystenergy.zhoop": "Funny Blade Sweep Thing",
+    "entity.amethystenergy.flying_item": "Flying Item"
 }

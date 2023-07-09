@@ -13,8 +13,13 @@ public class AmethystEntities {
 			.dimensions(EntityDimensions.fixed(0.7f, 0.15f))
 			.trackRangeBlocks(4).trackedUpdateRate(10)
 			.build();
+	public static final EntityType<FlyingItemEntity> FLYING_ITEM = FabricEntityTypeBuilder.<FlyingItemEntity>create(SpawnGroup.MISC, FlyingItemEntity::new)
+			.dimensions(EntityDimensions.fixed(0.25f, 0.25f))
+			.trackRangeBlocks(4).trackedUpdateRate(10)
+			.build();
 
 	public static void registerAll() {
 		Registry.register(Registries.ENTITY_TYPE, AmethystEnergy.id("zhoop"), ZHOOP);
+		Registry.register(Registries.ENTITY_TYPE, AmethystEnergy.id("flying_item"), FLYING_ITEM);
 	}
 }

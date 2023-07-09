@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "IIE",
+        " T ",
+        "EII"
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:pickaxe_head_module_template" },
+        "I": { "item": "minecraft:iron_ingot" },
+        "E": { "item": "minecraft:echo_shard" }
+    },
+    "result": {
+        "item": "amethystenergy:pickmerang_module",
+        "count": 1
+    }
+}

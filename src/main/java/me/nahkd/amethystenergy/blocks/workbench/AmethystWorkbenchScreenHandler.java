@@ -228,6 +228,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 				var toolInstance = new AmethystToolInstance(tool.get(), true);
 
 				if (shards.isEmpty() || shards.get().getCount() < moduleType.shardsApplyCost()) return ItemStack.EMPTY;
+				if (moduleType.isAlwaysPerfectModule()) stack.getOrCreateSubNbt(Module.TAG_MODULE).copyFrom(moduleType.createModuleNbt(100));
 				if (!stack.hasNbt() || !stack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE)) return ItemStack.EMPTY;
 
 				outer: for (var currentSlotType : ModuleSlot.values()) {
@@ -295,6 +296,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 
 			if (moduleItem == null || moduleItem.isEmpty() || !(moduleItem.getItem() instanceof Module moduleType)) {
 				if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() instanceof Module cursorModuleType) {
+					if (cursorModuleType.isAlwaysPerfectModule()) cursorStack.getOrCreateSubNbt(Module.TAG_MODULE).copyFrom(cursorModuleType.createModuleNbt(100));
 					if (!cursorStack.hasNbt() || !cursorStack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE)) return;
 					if (shards.isEmpty() || shards.get().getCount() < cursorModuleType.shardsApplyCost()) return;
 					if (slotType != null && !cursorModuleType.getModuleSlot().compatibleWithModuleSlot(slotType)) return;

@@ -33,6 +33,7 @@ public class Modules {
 	public static final GlowingBladeModule GLOWING_BLADE = new GlowingBladeModule();
 	public static final SoulstealerModule SOULSTEALER = new SoulstealerModule();
 	public static final DrillModule DRILL = new DrillModule();
+	public static final PickmerangModule PICKMERANG = new PickmerangModule();
 
 	private static void register(String id, Module module) {
 		Registry.register(Registries.ITEM, AmethystEnergy.id(id + "_module"), module);
@@ -69,5 +70,6 @@ public class Modules {
 		register("glowing_blade", GLOWING_BLADE);
 		register("soulstealer", SOULSTEALER);
 		register("drill", DRILL);
+		register("pickmerang", PICKMERANG);
 	}
 }
