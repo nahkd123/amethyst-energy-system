@@ -3,6 +3,11 @@ _(Not to be confused with symmetrical encryption algorithm)_
 
 The main idea of this mod is to provide amethyst more usage, but you can also choose to branch out to amethyst tools from iron tools instead of going for diamond (and netherite) stuffs. The issue is: you have to find modules for your precious sword.
 
+## Download and install AES
+> **Note**: You need Fabric Loader 0.14.21+ for Minecraft 1.20.1 and Fabric API 0.83.0+.
+
+Development version of AES is available for download [here](https://github.com/nahkd123/amethyst-energy-system/actions). Simply click on the top one, scroll down to "Artifacts" section and download "Artifacts". After that, extract artifacts and copy ``amethyst-energy-system.jar`` (not the one with ``-sources``!) to your ``mods/`` folder.
+
 ## Amethyst Workbench
 An universal workbench for everything related to AES.
 
