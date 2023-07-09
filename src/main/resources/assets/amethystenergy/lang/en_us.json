@@ -1,6 +1,11 @@
 {
     "item.amethystenergy.handle_module_template": "Handle Module Template",
     "item.amethystenergy.binding_module_template": "Binding Module Template",
+    "item.amethystenergy.sword_blade_module_template": "Sword Blade Module Template",
+    "item.amethystenergy.shovel_head_module_template": "Shovel Head Module Template",
+    "item.amethystenergy.pickaxe_head_module_template": "Pickaxe Head Module Template",
+    "item.amethystenergy.axe_head_module_template": "Axe Head Module Template",
+    "item.amethystenergy.hoe_blade_module_template": "Hoe Blade Module Template",
 
     "item.amethystenergy.magic_durability_module": "Magic Durability Module",
     "item.amethystenergy.featherweight_module": "Featherweight Module",

@@ -17,6 +17,11 @@ public class Modules {
 	// Templates
 	public static final Item TEMPLATE_HANDLE = new Item(new FabricItemSettings());
 	public static final Item TEMPLATE_BINDING = new Item(new FabricItemSettings());
+	public static final Item TEMPLATE_SWORD_BLADE = new Item(new FabricItemSettings());
+	public static final Item TEMPLATE_SHOVEL_HEAD = new Item(new FabricItemSettings());
+	public static final Item TEMPLATE_AXE_HEAD = new Item(new FabricItemSettings());
+	public static final Item TEMPLATE_PICKAXE_HEAD = new Item(new FabricItemSettings());
+	public static final Item TEMPLATE_HOE_BLADE = new Item(new FabricItemSettings());
 
 	// Modules
 	public static final FeatherweightModule FEATHERWEIGHT = new FeatherweightModule();
@@ -37,12 +42,22 @@ public class Modules {
 		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.getKey(), AmethystEnergy.id("modules"))).register(entries -> {
 			entries.add(TEMPLATE_HANDLE);
 			entries.add(TEMPLATE_BINDING);
+			entries.add(TEMPLATE_SWORD_BLADE);
+			entries.add(TEMPLATE_SHOVEL_HEAD);
+			entries.add(TEMPLATE_AXE_HEAD);
+			entries.add(TEMPLATE_PICKAXE_HEAD);
+			entries.add(TEMPLATE_HOE_BLADE);
 
 			for (var module : MODULES) entries.add(Module.createModuleItem(module, 100));
 		});
 
 		Registry.register(Registries.ITEM, AmethystEnergy.id("handle_module_template"), TEMPLATE_HANDLE);
 		Registry.register(Registries.ITEM, AmethystEnergy.id("binding_module_template"), TEMPLATE_BINDING);
+		Registry.register(Registries.ITEM, AmethystEnergy.id("sword_blade_module_template"), TEMPLATE_SWORD_BLADE);
+		Registry.register(Registries.ITEM, AmethystEnergy.id("shovel_head_module_template"), TEMPLATE_SHOVEL_HEAD);
+		Registry.register(Registries.ITEM, AmethystEnergy.id("axe_head_module_template"), TEMPLATE_AXE_HEAD);
+		Registry.register(Registries.ITEM, AmethystEnergy.id("pickaxe_head_module_template"), TEMPLATE_PICKAXE_HEAD);
+		Registry.register(Registries.ITEM, AmethystEnergy.id("hoe_blade_module_template"), TEMPLATE_HOE_BLADE);
 
 		register("featherweight", FEATHERWEIGHT);
 		register("magic_durability", MAGIC_DURABILITY);

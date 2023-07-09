@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III",
+        " A ",
+        " A "
+    ],
+    "key": {
+        "I": { "item": "minecraft:iron_ingot" },
+        "A": { "item": "minecraft:amethyst_shard" }
+    },
+    "result": {
+        "item": "amethystenergy:pickaxe_head_module_template",
+        "count": 1
+    }
+}

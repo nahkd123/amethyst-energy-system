@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "amethystenergy:item/modules/hoe_blade_module_template"
+    }
+}
