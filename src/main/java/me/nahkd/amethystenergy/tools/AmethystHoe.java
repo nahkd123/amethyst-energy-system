@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.google.common.collect.Multimap;
 
+import me.nahkd.amethystenergy.items.HasCustomBars;
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import net.minecraft.client.item.TooltipContext;
@@ -24,7 +25,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class AmethystHoe extends HoeItem implements AmethystTool {
+public class AmethystHoe extends HoeItem implements AmethystTool, HasCustomBars {
 	private float attackSpeed;
 	private EnumMap<ModuleSlot, Integer> layout;
 
@@ -111,5 +112,20 @@ public class AmethystHoe extends HoeItem implements AmethystTool {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		return amethystFinishUsing(stack, world, user);
+	}
+
+	@Override
+	public int getBarsCount(ItemStack stack) {
+		return amethystGetBarsCount(stack);
+	}
+
+	@Override
+	public int getBarColor(ItemStack stack, int index) {
+		return amethystGetBarColor(stack, index);
+	}
+
+	@Override
+	public float getBarProgress(ItemStack stack, int index) {
+		return amethystGetBarProgress(stack, index);
 	}
 }

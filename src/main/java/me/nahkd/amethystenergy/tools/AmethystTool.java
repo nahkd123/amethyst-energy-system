@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
+import me.nahkd.amethystenergy.modules.EnergyModule;
 import me.nahkd.amethystenergy.modules.MiningModifier;
 import me.nahkd.amethystenergy.modules.ToolUsable;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
@@ -198,5 +199,26 @@ public interface AmethystTool {
 		});
 
 		return ctx.miningSpeed;
+	}
+
+	default int amethystGetBarsCount(ItemStack stack) {
+		var instance = new AmethystToolInstance(stack, false);
+		if (instance.getMaxAmethystEnergy() <= 0f) return 0;
+		return 1;
+	}
+
+	default int amethystGetBarColor(ItemStack stack, int index) {
+		return switch (index) {
+		case 0 -> EnergyModule.ENERGY_BAR_COLOR;
+		default -> 0xFFFFFF;
+		};
+	}
+
+	default float amethystGetBarProgress(ItemStack stack, int index) {
+		var instance = new AmethystToolInstance(stack, false);
+		return switch (index) {
+		case 0 -> instance.getCurrentAmethystEnergy() / instance.getMaxAmethystEnergy();
+		default -> 1f;
+		};
 	}
 }

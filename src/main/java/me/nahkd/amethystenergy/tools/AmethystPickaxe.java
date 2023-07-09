@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.google.common.collect.Multimap;
 
+import me.nahkd.amethystenergy.items.HasCustomBars;
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import net.minecraft.block.BlockState;
@@ -25,7 +26,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class AmethystPickaxe extends PickaxeItem implements AmethystTool {
+public class AmethystPickaxe extends PickaxeItem implements AmethystTool, HasCustomBars {
 	private float attackSpeed;
 	private EnumMap<ModuleSlot, Integer> layout;
 
@@ -117,5 +118,20 @@ public class AmethystPickaxe extends PickaxeItem implements AmethystTool {
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		return amethystMiningSpeedMultiplier(super.getMiningSpeedMultiplier(stack, state), stack, state);
+	}
+
+	@Override
+	public int getBarsCount(ItemStack stack) {
+		return amethystGetBarsCount(stack);
+	}
+
+	@Override
+	public int getBarColor(ItemStack stack, int index) {
+		return amethystGetBarColor(stack, index);
+	}
+
+	@Override
+	public float getBarProgress(ItemStack stack, int index) {
+		return amethystGetBarProgress(stack, index);
 	}
 }
