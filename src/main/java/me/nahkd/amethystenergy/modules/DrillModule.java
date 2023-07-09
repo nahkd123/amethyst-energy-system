@@ -35,8 +35,8 @@ public class DrillModule extends Module implements MiningModifier, ToolUsable {
 		appender.accept(Text.literal("RMB to activate/deactivate."));
 	}
 
-	public float getDrillSpeed(int quality) { return 1 + quality / 100f * 99f; }
-	public float getDrillEnergyUsage(int quality) { return quality / 800f; }
+	public float getDrillSpeed(int quality) { return 1 + quality / 100f * 19f; }
+	public float getDrillEnergyUsage(int quality) { return (2f - (quality / 100f)) * 0.12f; }
 
 	@Override
 	public void onMiningModifier(ModuleMiningModifierContext ctx, ModuleInstance module) {

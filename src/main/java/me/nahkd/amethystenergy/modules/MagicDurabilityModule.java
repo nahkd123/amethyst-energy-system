@@ -19,7 +19,7 @@ public class MagicDurabilityModule extends Module {
 	}
 
 	@Override
-	public boolean isCraftableModule() {
+	public boolean isAlwaysPerfectModule() {
 		return true;
 	}
 

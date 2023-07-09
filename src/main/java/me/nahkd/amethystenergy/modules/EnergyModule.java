@@ -23,6 +23,11 @@ public class EnergyModule extends Module {
 	}
 
 	@Override
+	public int getMaximumIdentifyQuality() {
+		return 25;
+	}
+
+	@Override
 	public void appendModuleDescription(ItemStack stack, int quality, NbtCompound moduleData, Consumer<Text> appender) {
 		var energy = moduleData.getFloat(TAG_ENERGY);
 		appender.accept(Text.literal("Store amethyst energy (AE) for your tool"));
