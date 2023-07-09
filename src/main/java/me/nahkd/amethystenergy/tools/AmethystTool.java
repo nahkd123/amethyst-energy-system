@@ -8,9 +8,12 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
+import me.nahkd.amethystenergy.modules.MiningModifier;
 import me.nahkd.amethystenergy.modules.ToolUsable;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
+import me.nahkd.amethystenergy.modules.contexts.ModuleMiningModifierContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -185,5 +188,15 @@ public interface AmethystTool {
 
 		stack.damage(ctx.durabilityUse, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 		return stack;
+	}
+
+	default float amethystMiningSpeedMultiplier(float def, ItemStack stack, BlockState state) {
+		var ctx = new ModuleMiningModifierContext(stack, def);
+		var instance = new AmethystToolInstance(stack, false);
+		instance.forEachModule(module -> {
+			if (module.getModuleType() instanceof MiningModifier miningMod) miningMod.onMiningModifier(ctx, module);
+		});
+
+		return ctx.miningSpeed;
 	}
 }

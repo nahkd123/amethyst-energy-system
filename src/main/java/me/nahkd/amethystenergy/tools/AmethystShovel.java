@@ -9,6 +9,7 @@ import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -111,5 +112,10 @@ public class AmethystShovel extends ShovelItem implements AmethystTool {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		return amethystFinishUsing(stack, world, user);
+	}
+
+	@Override
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+		return amethystMiningSpeedMultiplier(super.getMiningSpeedMultiplier(stack, state), stack, state);
 	}
 }
