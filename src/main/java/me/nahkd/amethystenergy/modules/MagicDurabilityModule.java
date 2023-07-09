@@ -24,8 +24,8 @@ public class MagicDurabilityModule extends Module {
 	}
 
 	@Override
-	public int getIterationStage() {
-		return ITERATION_STAGE_POST;
+	public int getIterationPriority() {
+		return PRIORITY_LATEST;
 	}
 
 	@Override

@@ -26,9 +26,10 @@ public abstract class Module extends Item {
 	public static final String TAG_MODULE = "Module";
 	public static final String TAG_ID = "Id";
 	public static final String TAG_QUALITY = "Quality";
-	public static final int ITERATION_STAGE_PRE = 0;
-	public static final int ITERATION_STAGE_DEFAULT = 1;
-	public static final int ITERATION_STAGE_POST = 2;
+
+	public static final int PRIORITY_EARLIEST = -1000;
+	public static final int PRIORITY_LATEST = 1000;
+	public static final int PRIORITY_DEFAULT = 0;
 
 	public Module(Settings settings) {
 		super(settings);
@@ -50,7 +51,7 @@ public abstract class Module extends Item {
 	public boolean isAlwaysPerfectModule() { return false; }
 	public int shardsApplyCost() { return 1; }
 	public int getMaximumIdentifyQuality() { return 10; }
-	public int getIterationStage() { return ITERATION_STAGE_DEFAULT; }
+	public int getIterationPriority() { return PRIORITY_DEFAULT; }
 	public ModuleInstance initializeModuleInstance(int quality) { return new ModuleInstance(this, quality); }
 
 	public void onApplyAttributes(ModuleAttributeContext ctx, ModuleInstance instance) {}
@@ -96,7 +97,7 @@ public abstract class Module extends Item {
 		if (context.isCreative() && context.isAdvanced()) {
 			tooltip.add(Text.empty());
 			tooltip.add(Text.literal("Module Quality: " + quality).styled(s -> s.withColor(Formatting.DARK_GRAY)));
-			tooltip.add(Text.literal("Module Iteration Stage: " + getIterationStage()).styled(s -> s.withColor(Formatting.DARK_GRAY)));
+			tooltip.add(Text.literal("Module Iteration Priority: " + getIterationPriority()).styled(s -> s.withColor(Formatting.DARK_GRAY)));
 		}
 	}
 
@@ -138,5 +139,9 @@ public abstract class Module extends Item {
 		ItemStack stack = new ItemStack(type);
 		stack.setSubNbt(TAG_MODULE, type.createModuleNbt(quality));
 		return stack;
+	}
+
+	public static int priorityBetween(int a, int b) {
+		return (a + b) / 2;
 	}
 }

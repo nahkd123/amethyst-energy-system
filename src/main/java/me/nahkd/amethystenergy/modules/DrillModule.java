@@ -29,6 +29,11 @@ public class DrillModule extends Module implements MiningModifier, ToolUsable {
 	}
 
 	@Override
+	public int getIterationPriority() {
+		return PRIORITY_EARLIEST;
+	}
+
+	@Override
 	public void appendModuleDescription(ItemStack stack, int quality, NbtCompound moduleData, Consumer<Text> appender) {
 		appender.accept(Text.literal(AEUtils.formatStat(getDrillSpeed(quality)) + "x your mining speed."));
 		appender.accept(Text.literal("Cost " + EnergyModule.SYMBOL + " " + AEUtils.formatEnergy(getDrillEnergyUsage(quality)) + " for each block mined."));

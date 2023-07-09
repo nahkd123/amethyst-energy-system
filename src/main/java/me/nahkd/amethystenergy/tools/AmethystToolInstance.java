@@ -3,6 +3,7 @@ package me.nahkd.amethystenergy.tools;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -75,8 +76,7 @@ public class AmethystToolInstance implements AmethystEnergyInterface {
 	}
 
 	public void forEachModule(Consumer<ModuleInstance> consumer) {
-		List<List<ModuleInstance>> stages = new ArrayList<>();
-		for (int i = 0; i < 3; i++) stages.add(new ArrayList<>());
+		List<ModuleInstance> moduleInstances = new ArrayList<>();
 
 		if (stack.hasNbt() && stack.getNbt().contains(AmethystTool.TAG_MODULES, NbtElement.COMPOUND_TYPE)) {
         	var modules = getAllModules();
@@ -84,15 +84,12 @@ public class AmethystToolInstance implements AmethystEnergyInterface {
         	for (int i = 0; i < modules.size(); i++) {
         		var module = modules.get(i);
         		if (module == null || module.isEmpty()) continue;
-        		stages.get(module.getModuleType().getIterationStage()).add(module);
+        		moduleInstances.add(module);
         	}
         }
 
-		for (var stage : stages) {
-			for (var module : stage) {
-        		consumer.accept(module);
-			}
-		}
+		moduleInstances.sort(Comparator.comparingInt(v -> v.getModuleType().getIterationPriority()));
+		for (var module : moduleInstances) consumer.accept(module);
 	}
 
 	@Override
