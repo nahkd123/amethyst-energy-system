@@ -26,6 +26,7 @@ public class Modules {
 	// Modules
 	public static final FeatherweightModule FEATHERWEIGHT = new FeatherweightModule();
 	public static final MagicDurabilityModule MAGIC_DURABILITY = new MagicDurabilityModule();
+	public static final MatterCondenserVialModule MATTER_CONDENSER_VIAL = new MatterCondenserVialModule();
 
 	public static final EnergyModule ENERGY = new EnergyModule();
 
@@ -61,6 +62,7 @@ public class Modules {
 
 		register("featherweight", FEATHERWEIGHT);
 		register("magic_durability", MAGIC_DURABILITY);
+		register("matter_condenser_vial", MATTER_CONDENSER_VIAL);
 
 		register("energy", ENERGY);
 

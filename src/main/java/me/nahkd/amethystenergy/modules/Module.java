@@ -49,6 +49,7 @@ public abstract class Module extends Item {
 
 	public boolean destroyOnRemoval() { return true; }
 	public boolean isAlwaysPerfectModule() { return false; }
+	public boolean canBeUpgraded() { return true; }
 	public int shardsApplyCost() { return 1; }
 	public int getMaximumIdentifyQuality() { return 10; }
 	public int getIterationPriority() { return PRIORITY_DEFAULT; }
@@ -68,6 +69,7 @@ public abstract class Module extends Item {
 		if (moduleNbt == null || moduleNbt.isEmpty()) {
 			if (isAlwaysPerfectModule()) {
 				quality = 100;
+				moduleNbt = createModuleNbt(100);
 			} else {
 				tooltip.add(Text.literal("Unidentified Module").styled(s -> s.withColor(Formatting.BLUE)));
 				tooltip.add(Text.literal("RMB to identify this module.").styled(s -> s.withColor(Formatting.GRAY)));
@@ -91,7 +93,8 @@ public abstract class Module extends Item {
 		});
 
 		tooltip.add(Text.empty());
-		if (destroyOnRemoval()) tooltip.add(Text.literal("Destroys when removed from item").styled(s -> s.withColor(Formatting.GRAY)));
+		if (destroyOnRemoval()) tooltip.add(Text.literal("Destroy when removed from item!").styled(s -> s.withColor(Formatting.GRAY)));
+		if (!canBeUpgraded()) tooltip.add(Text.literal("This module can't be upgraded!").styled(s -> s.withColor(Formatting.GRAY)));
 		tooltip.add(Text.literal("Apply cost: " + shardsApplyCost() + " shard" + (shardsApplyCost() == 1? "" : "s")).styled(s -> s.withColor(Formatting.GRAY)));
 
 		if (context.isCreative() && context.isAdvanced()) {

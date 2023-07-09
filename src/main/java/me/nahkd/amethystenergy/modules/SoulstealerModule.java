@@ -26,6 +26,11 @@ public class SoulstealerModule extends Module {
 		return true;
 	}
 
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
 	public float getBonusDamage(int quality) { return (quality / 100f) * 6f; }
 	public float getBonusAttackSpeed(int quality) { return quality / 100f; }
 

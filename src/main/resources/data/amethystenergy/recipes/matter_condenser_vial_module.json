@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " A ",
+        " B ",
+        " T "
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:handle_module_template" },
+        "B": { "item": "minecraft:glass_bottle" },
+        "A": { "item": "minecraft:amethyst_shard" }
+    },
+    "result": {
+        "item": "amethystenergy:matter_condenser_vial_module",
+        "count": 1
+    }
+}

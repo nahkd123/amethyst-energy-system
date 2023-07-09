@@ -6,6 +6,7 @@ import java.util.List;
 import me.nahkd.amethystenergy.blocks.AESBlockScreenHandlers;
 import me.nahkd.amethystenergy.inventory.StackHolder;
 import me.nahkd.amethystenergy.modules.EnergyModule;
+import me.nahkd.amethystenergy.modules.MatterCondenserVialModule;
 import me.nahkd.amethystenergy.modules.Module;
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.tools.AmethystTool;
@@ -223,6 +224,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 			}
 
 			if (stack.getItem() instanceof Module moduleType) {
+				if (tool.isEmpty()) return ItemStack.EMPTY;
 				var toolInstance = new AmethystToolInstance(tool.get(), true);
 
 				if (shards.isEmpty() || shards.get().getCount() < moduleType.shardsApplyCost()) return ItemStack.EMPTY;
@@ -293,6 +295,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 
 			if (moduleItem == null || moduleItem.isEmpty() || !(moduleItem.getItem() instanceof Module moduleType)) {
 				if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() instanceof Module cursorModuleType) {
+					if (!cursorStack.hasNbt() || !cursorStack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE)) return;
 					if (shards.isEmpty() || shards.get().getCount() < cursorModuleType.shardsApplyCost()) return;
 					if (slotType != null && !cursorModuleType.getModuleSlot().compatibleWithModuleSlot(slotType)) return;
 
@@ -303,20 +306,37 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 				return;
 			}
 
-			if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() == AESUtilities.ENERGIZED_AMETHYST) {
-				if (!(moduleItem.getItem() instanceof EnergyModule energyModule)) return;
-
-				// Charge
-				var energyModuleData = moduleItem.getOrCreateSubNbt(Module.TAG_MODULE);
-				var currentEnergy = energyModuleData.getFloat(EnergyModule.TAG_ENERGY);
-				var maxEnergy = energyModule.getMaxEnergy(energyModuleData.getInt(Module.TAG_QUALITY));
-				var useItems = Math.min((int) Math.floor(maxEnergy - currentEnergy), cursorStack.getCount());
-				var newEnergy = Math.min(currentEnergy + useItems, maxEnergy);
-
+			if (cursorStack != null && !cursorStack.isEmpty()) {
 				var toolInstance = new AmethystToolInstance(tool.get(), true);
-				toolInstance.getModules(slotType).get(moduleSlotIdx).getModuleData().putFloat(EnergyModule.TAG_ENERGY, newEnergy);
-				cursorStack.decrement(useItems);
-				return;
+				var module = toolInstance.getModules(slotType).get(moduleSlotIdx);
+				var moduleData = module.getModuleData();
+
+				if (cursorStack.getItem() == AESUtilities.ENERGIZED_AMETHYST) {
+					if (!(moduleItem.getItem() instanceof EnergyModule energyModule)) return;
+
+					// Charge
+					var currentEnergy = moduleData.getFloat(EnergyModule.TAG_ENERGY);
+					var maxEnergy = energyModule.getMaxEnergy(moduleData.getInt(Module.TAG_QUALITY));
+					var useItems = Math.min((int) Math.floor(maxEnergy - currentEnergy), cursorStack.getCount());
+					var newEnergy = Math.min(currentEnergy + useItems, maxEnergy);
+
+					moduleData.putFloat(EnergyModule.TAG_ENERGY, newEnergy);
+					cursorStack.decrement(useItems);
+					return;
+				}
+
+				if (cursorStack.getItem() instanceof MatterCondenserVialModule) {
+					var quality = module.getModuleQuality();
+					if (quality >= 100) return;
+					if (!module.getModuleType().canBeUpgraded()) return;
+
+					var extraQuality = player.getRandom().nextBetween(5, 12);
+					quality = Math.max(Math.min(quality + extraQuality, 100), 1);
+
+					moduleData.putInt(Module.TAG_QUALITY, quality);
+					cursorStack.decrement(1);
+					return;
+				}
 			}
 
 			if (moduleType.destroyOnRemoval()) {
