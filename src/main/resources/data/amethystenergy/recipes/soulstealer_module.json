@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WWT",
+        "  S",
+        "  F"
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:hoe_blade_module_template" },
+        "W": { "item": "minecraft:wither_skeleton_skull" },
+        "S": { "item": "minecraft:stick" },
+        "F": { "item": "minecraft:wither_rose" }
+    },
+    "result": {
+        "item": "amethystenergy:soulstealer_module",
+        "count": 1
+    }
+}

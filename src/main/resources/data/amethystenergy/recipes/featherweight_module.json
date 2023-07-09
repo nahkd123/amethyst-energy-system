@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "F F",
+        "FTF",
+        "F F"
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:handle_module_template" },
+        "F": { "item": "minecraft:feather" }
+    },
+    "result": {
+        "item": "amethystenergy:featherweight_module",
+        "count": 1
+    }
+}

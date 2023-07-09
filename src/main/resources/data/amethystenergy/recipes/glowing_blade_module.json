@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GDG",
+        "GDG",
+        "ETE"
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:sword_blade_module_template" },
+        "D": { "item": "minecraft:diamond" },
+        "G": { "item": "minecraft:glowstone" },
+        "E": { "item": "minecraft:ender_pearl" }
+    },
+    "result": {
+        "item": "amethystenergy:glowing_blade_module",
+        "count": 1
+    }
+}

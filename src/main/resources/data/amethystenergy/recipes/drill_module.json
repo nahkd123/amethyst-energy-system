@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "FFF",
+        "IRI",
+        "123"
+    ],
+    "key": {
+        "1": { "item": "amethystenergy:axe_head_module_template" },
+        "2": { "item": "amethystenergy:pickaxe_head_module_template" },
+        "3": { "item": "amethystenergy:shovel_head_module_template" },
+        "F": { "item": "minecraft:flint" },
+        "I": { "item": "minecraft:iron_ingot" },
+        "R": { "item": "minecraft:redstone_block" }
+    },
+    "result": {
+        "item": "amethystenergy:drill_module",
+        "count": 1
+    }
+}

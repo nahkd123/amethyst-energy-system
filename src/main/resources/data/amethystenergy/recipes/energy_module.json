@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "BRB",
+        "RTR",
+        "BRB"
+    ],
+    "key": {
+        "T": { "item": "amethystenergy:binding_module_template" },
+        "R": { "item": "minecraft:redstone" },
+        "B": { "item": "minecraft:redstone_block" }
+    },
+    "result": {
+        "item": "amethystenergy:energy_module",
+        "count": 1
+    }
+}
