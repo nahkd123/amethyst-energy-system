@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " A ",
+        " C ",
+        "A A"
+    ],
+    "key": {
+        "A": { "item": "minecraft:amethyst_block" },
+        "C": { "item": "amethystenergy:condensed_amethyst_block" }
+    },
+    "result": {
+        "item": "amethystenergy:amethyst_glyph_block",
+        "count": 1
+    }
+}

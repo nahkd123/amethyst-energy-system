@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AAA",
+        "ABA",
+        "AAA"
+    ],
+    "key": {
+        "A": { "item": "minecraft:amethyst_shard" },
+        "B": { "item": "minecraft:iron_hoe" }
+    },
+    "result": {
+        "item": "amethystenergy:amethyst_hoe",
+        "count": 1
+    }
+}
