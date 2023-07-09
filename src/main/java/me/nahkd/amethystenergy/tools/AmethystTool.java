@@ -109,12 +109,6 @@ public interface AmethystTool {
         return null;
     }
 
-	default void amethystDamageItem(ItemStack stack, LivingEntity user, int amount) {
-		var ctx = new ModuleUseContext(stack, amount, user);
-		ctx.getToolInstance().forEachModule(module -> module.getModuleType().onItemDamage(ctx, module));
-        if (ctx.durabilityUse > 0) stack.damage(ctx.durabilityUse, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
-	}
-
 	default TypedActionResult<ItemStack> amethystUse(World world, PlayerEntity user, Hand hand) {
 		var using = user.getStackInHand(hand);
 		var ctx = new ModuleUseContext(using, 0, user);
@@ -169,7 +163,7 @@ public interface AmethystTool {
 			if (module.getModuleType() instanceof ToolUsable toolModule) toolModule.onUsingTick(ctx, module, remainingUseTicks);
 		});
 
-		amethystDamageItem(stack, user, ctx.durabilityUse);
+		stack.damage(ctx.durabilityUse, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 	}
 
 	default void amethystStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
@@ -179,7 +173,7 @@ public interface AmethystTool {
 			if (module.getModuleType() instanceof ToolUsable toolModule) toolModule.onUsingInterrupt(ctx, module);
 		});
 
-		amethystDamageItem(stack, user, ctx.durabilityUse);
+		stack.damage(ctx.durabilityUse, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 	}
 
 	default ItemStack amethystFinishUsing(ItemStack stack, World world, LivingEntity user) {
@@ -189,7 +183,7 @@ public interface AmethystTool {
 			if (module.getModuleType() instanceof ToolUsable toolModule) toolModule.onUsingFinish(ctx, module);
 		});
 
-		amethystDamageItem(stack, user, ctx.durabilityUse);
+		stack.damage(ctx.durabilityUse, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 		return stack;
 	}
 }

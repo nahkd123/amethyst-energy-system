@@ -9,7 +9,6 @@ import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -17,14 +16,9 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class AmethystHoe extends HoeItem implements AmethystTool {
@@ -82,14 +76,8 @@ public class AmethystHoe extends HoeItem implements AmethystTool {
 		var ctx = new ModuleAttackContext(stack, 2, target, attacker);
 		var instance = ctx.getToolInstance();
 		instance.forEachModule(module -> module.getModuleType().onAttack(ctx, module));
-		amethystDamageItem(stack, attacker, ctx.durabilityUse);
+		stack.damage(ctx.durabilityUse, attacker, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 		return true;
-	}
-
-	@Override
-	public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-		if (!world.isClient && state.getHardness(world, pos) != 0.0f) amethystDamageItem(stack, miner, 1);
-        return true;
 	}
 
 	@Override
@@ -115,24 +103,5 @@ public class AmethystHoe extends HoeItem implements AmethystTool {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		return amethystFinishUsing(stack, world, user);
-	}
-
-	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		var consumer = TILLING_ACTIONS.get(context.getWorld().getBlockState(context.getBlockPos()).getBlock());
-		if (consumer == null) return ActionResult.PASS;
-
-		if (consumer.getFirst().test(context)) {
-			context.getWorld().playSound(context.getPlayer(), context.getBlockPos(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1f, 1f);
-
-			if (context.getPlayer().getServer() != null) {
-				consumer.getSecond().accept(context);
-				if (context.getPlayer() != null) amethystDamageItem(context.getStack(), context.getPlayer(), 1);
-			}
-
-			return ActionResult.success(context.getPlayer().getServer() == null);
-		}
-
-		return ActionResult.PASS;
 	}
 }

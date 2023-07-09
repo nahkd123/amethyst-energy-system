@@ -9,7 +9,6 @@ import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +22,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class AmethystSword extends SwordItem implements AmethystTool {
@@ -81,14 +79,8 @@ public class AmethystSword extends SwordItem implements AmethystTool {
 		var ctx = new ModuleAttackContext(stack, 1, target, attacker);
 		var instance = ctx.getToolInstance();
 		instance.forEachModule(module -> module.getModuleType().onAttack(ctx, module));
-		amethystDamageItem(stack, attacker, ctx.durabilityUse);
+		stack.damage(ctx.durabilityUse, attacker, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 		return true;
-	}
-
-	@Override
-	public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-		if (state.getHardness(world, pos) != 0.0f) amethystDamageItem(stack, miner, 2);
-        return true;
 	}
 
 	@Override
