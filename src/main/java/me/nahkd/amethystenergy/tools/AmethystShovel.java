@@ -15,8 +15,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -24,17 +24,17 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class AmethystHoe extends HoeItem implements AmethystTool {
+public class AmethystShovel extends ShovelItem implements AmethystTool {
 	private float attackSpeed;
 	private EnumMap<ModuleSlot, Integer> layout;
 
-	public AmethystHoe(Settings settings, int attackDamage, float attackSpeed) {
+	public AmethystShovel(Settings settings, float attackDamage, float attackSpeed) {
 		super(ToolMaterials.IRON, attackDamage, attackSpeed, settings);
 		this.attackSpeed = attackSpeed;
 		this.layout = new EnumMap<>(ModuleSlot.class);
 		this.layout.put(ModuleSlot.HANDLE, 1);
 		this.layout.put(ModuleSlot.BINDING, 1);
-		this.layout.put(ModuleSlot.HOE_BLADE, 1);
+		this.layout.put(ModuleSlot.SHOVEL_HEAD, 1);
 	}
 
 	@Override

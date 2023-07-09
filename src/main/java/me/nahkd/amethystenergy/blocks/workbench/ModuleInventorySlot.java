@@ -27,7 +27,7 @@ public class ModuleInventorySlot extends Slot {
 		if (workbench.shards.isEmpty() || workbench.shards.get().getCount() < moduleType.shardsApplyCost()) return false;
 
 		var slotType = workbench.moduleSlotTypes.get(getIndex() - 2);
-		return slotType == moduleType.getModuleSlot();
+		return moduleType.getModuleSlot().compatibleWithModuleSlot(slotType);
 	}
 
 	@Override

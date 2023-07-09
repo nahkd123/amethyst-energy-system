@@ -13,6 +13,7 @@ import me.nahkd.amethystenergy.modules.ModuleSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 
 public class AmethystToolInstance implements AmethystEnergyInterface {
 	private ItemStack stack;
@@ -39,13 +40,21 @@ public class AmethystToolInstance implements AmethystEnergyInterface {
 	}
 
 	public List<ModuleInstance> getModules(ModuleSlot slot) {
-		if (!moduleSlots.contains(slot.slotName, NbtElement.LIST_TYPE)) return Arrays.asList();
-
+		NbtList modulesData;
 		List<ModuleInstance> modules = new ArrayList<>();
-		var modulesData = moduleSlots.getList(slot.slotName, NbtElement.COMPOUND_TYPE);
-		if (!moduleSlots.contains(slot.slotName, NbtElement.LIST_TYPE) && mutateNbt) moduleSlots.put(slot.slotName, modulesData);
 
-		for (int i = 0; i < tool.getSlots().get(slot); i++) {
+		if (!moduleSlots.contains(slot.slotName, NbtElement.LIST_TYPE)) {
+			var count = tool.getSlots().getOrDefault(slot, 0);
+			if (tool.getSlots().getOrDefault(slot, 0) == 0) return Arrays.asList();
+
+			modulesData = new NbtList();
+			for (int i = 0; i < count; i++) modulesData.add(new NbtCompound());
+			if (mutateNbt) moduleSlots.put(slot.slotName, modulesData);
+		} else {
+			modulesData = moduleSlots.getList(slot.slotName, NbtElement.COMPOUND_TYPE);
+		}
+
+		for (int i = 0; i < tool.getSlots().getOrDefault(slot, 0); i++) {
 			var moduleData = modulesData.getCompound(i);
 			modules.add(new ModuleInstance(moduleData));
 			if (i >= modulesData.size() && mutateNbt) modulesData.add(moduleData);

@@ -16,7 +16,10 @@ public class AmethystWorkbenchScreen extends HandledScreen<AmethystWorkbenchScre
 			ModuleSlot.HANDLE, new int[] { 176, 0 },
 			ModuleSlot.BINDING, new int[] { 176, 18 },
 			ModuleSlot.SWORD_BLADE, new int[] { 176, 36 },
-			ModuleSlot.HOE_BLADE, new int[] { 176, 54 }
+			ModuleSlot.HOE_BLADE, new int[] { 176, 54 },
+			ModuleSlot.SHOVEL_HEAD, new int[] { 176, 72 },
+			ModuleSlot.AXE_HEAD, new int[] { 176, 90 },
+			ModuleSlot.PICKAXE_HEAD, new int[] { 176, 108 }
 			);
 
 	private AmethystWorkbenchScreenHandler handler;

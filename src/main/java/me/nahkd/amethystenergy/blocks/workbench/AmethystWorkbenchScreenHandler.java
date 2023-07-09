@@ -224,20 +224,26 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 
 			if (stack.getItem() instanceof Module moduleType) {
 				var toolInstance = new AmethystToolInstance(tool.get(), true);
-				var modules = toolInstance.getModules(moduleType.getModuleSlot());
-				if (!stack.hasNbt() || !stack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE) || modules.size() == 0) return ItemStack.EMPTY;
+
 				if (shards.isEmpty() || shards.get().getCount() < moduleType.shardsApplyCost()) return ItemStack.EMPTY;
+				if (!stack.hasNbt() || !stack.getNbt().contains(Module.TAG_MODULE, NbtElement.COMPOUND_TYPE)) return ItemStack.EMPTY;
 
-				for (int i = 0; i < modules.size(); i++) {
-					var moduleInstance = modules.get(i);
+				outer: for (var currentSlotType : ModuleSlot.values()) {
+					if (!moduleType.getModuleSlot().compatibleWithModuleSlot(currentSlotType)) continue;
+					var modules = toolInstance.getModules(currentSlotType);
+					if (modules.size() == 0) continue;
 
-					if (moduleInstance.isEmpty()) {
-						moduleInstance.getModuleData().copyFrom(stack.getOrCreateSubNbt(Module.TAG_MODULE));
-						stack.decrement(1);
-						var shardsStack = shards.get();
-						shardsStack.decrement(moduleType.shardsApplyCost());
-						shards.set(shardsStack);
-						break;
+					for (int i = 0; i < modules.size(); i++) {
+						var moduleInstance = modules.get(i);
+
+						if (moduleInstance.isEmpty()) {
+							moduleInstance.getModuleData().copyFrom(stack.getOrCreateSubNbt(Module.TAG_MODULE));
+							stack.decrement(1);
+							var shardsStack = shards.get();
+							shardsStack.decrement(moduleType.shardsApplyCost());
+							shards.set(shardsStack);
+							break outer;
+						}
 					}
 				}
 			}
@@ -288,7 +294,7 @@ public class AmethystWorkbenchScreenHandler extends ScreenHandler implements Inv
 			if (moduleItem == null || moduleItem.isEmpty() || !(moduleItem.getItem() instanceof Module moduleType)) {
 				if (cursorStack != null && !cursorStack.isEmpty() && cursorStack.getItem() instanceof Module cursorModuleType) {
 					if (shards.isEmpty() || shards.get().getCount() < cursorModuleType.shardsApplyCost()) return;
-					if (slotType != null && cursorModuleType.getModuleSlot() != slotType) return;
+					if (slotType != null && !cursorModuleType.getModuleSlot().compatibleWithModuleSlot(slotType)) return;
 
 					super.onSlotClick(slotIndex, button, actionType, player);
 					shards.remove(cursorModuleType.shardsApplyCost());
