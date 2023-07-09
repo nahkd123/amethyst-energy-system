@@ -46,6 +46,7 @@ public class ZhoopEntityRenderer extends EntityRenderer<ZhoopEntity> {
 				.rotateAxis((float) bladePitch, 0, 0, 1)
 				.rotateAxis((float) -(Math.PI / 4d), 0, 1, 0)
 				.rotateAxis((float) bladeYaw, 0, 1, 0));
+		matrices.translate(-0.5f, 0f, -0.5f);
 
 		model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityAlpha(TEXTURE)), 0xFF00FF, 0, 1f, 1f, 1f, 1f);
 		matrices.pop();

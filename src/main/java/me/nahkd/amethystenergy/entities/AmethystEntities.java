@@ -10,7 +10,7 @@ import net.minecraft.registry.Registry;
 
 public class AmethystEntities {
 	public static final EntityType<ZhoopEntity> ZHOOP = FabricEntityTypeBuilder.<ZhoopEntity>create(SpawnGroup.MISC, ZhoopEntity::new)
-			.dimensions(EntityDimensions.fixed(0.25f, 0.25f))
+			.dimensions(EntityDimensions.fixed(0.7f, 0.15f))
 			.trackRangeBlocks(4).trackedUpdateRate(10)
 			.build();
 
