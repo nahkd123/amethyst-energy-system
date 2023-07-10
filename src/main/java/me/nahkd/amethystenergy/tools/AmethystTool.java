@@ -3,13 +3,13 @@ package me.nahkd.amethystenergy.tools;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
 import me.nahkd.amethystenergy.modules.ModuleSlot;
 import me.nahkd.amethystenergy.modules.EnergyModule;
-import me.nahkd.amethystenergy.modules.MatterCondenserVialModule;
 import me.nahkd.amethystenergy.modules.MiningModifier;
 import me.nahkd.amethystenergy.modules.ToolUsable;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
@@ -202,35 +202,12 @@ public interface AmethystTool {
 		return ctx.miningSpeed;
 	}
 
-	default int amethystGetBarsCount(ItemStack stack) {
+	default void amethystEmitCustomBars(ItemStack stack, BiConsumer<Integer, Float> emitter) {
 		var instance = new AmethystToolInstance(stack, false);
-		var bars = 0;
-		var handleModules = instance.getModules(ModuleSlot.HANDLE);
+		if (instance.getMaxAmethystEnergy() > 0f) emitter.accept(EnergyModule.ENERGY_BAR_COLOR, instance.getCurrentAmethystEnergy() / instance.getMaxAmethystEnergy());
 
-		if (instance.getMaxAmethystEnergy() > 0f) bars++;
-		if (handleModules.size() > 0 && !handleModules.get(0).isEmpty() && handleModules.get(0).getModuleType() instanceof MatterCondenserVialModule) bars++;
-
-		return bars;
-	}
-
-	default int amethystGetBarColor(ItemStack stack, int index) {
-		return switch (index) {
-		case 0 -> EnergyModule.ENERGY_BAR_COLOR;
-		case 1 -> MatterCondenserVialModule.CONDENSED_BAR_COLOR;
-		default -> 0xFFFFFF;
-		};
-	}
-
-	default float amethystGetBarProgress(ItemStack stack, int index) {
-		var instance = new AmethystToolInstance(stack, false);
-		var handleModules = instance.getModules(ModuleSlot.HANDLE);
-		var hasCondenser = handleModules.size() > 0 && !handleModules.get(0).isEmpty() && handleModules.get(0).getModuleType() instanceof MatterCondenserVialModule;
-		var condenserData = hasCondenser? handleModules.get(0).getModuleData().getFloat(MatterCondenserVialModule.TAG_CONDENSED) : 0f;
-
-		return switch (index) {
-		case 0 -> instance.getCurrentAmethystEnergy() / instance.getMaxAmethystEnergy();
-		case 1 -> condenserData;
-		default -> 1f;
-		};
+		instance.getAllModules().forEach(module -> {
+			if (!module.isEmpty()) module.getModuleType().emitModuleBars(instance, module, emitter);
+		});
 	}
 }

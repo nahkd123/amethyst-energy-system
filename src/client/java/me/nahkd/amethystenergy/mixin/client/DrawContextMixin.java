@@ -1,5 +1,7 @@
 package me.nahkd.amethystenergy.mixin.client;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,19 +23,18 @@ public abstract class DrawContextMixin {
 		var self = (DrawContext) (Object) this;
 
 		if (stack.getItem() instanceof HasCustomBars hasCustomBars) {
-			var amount = hasCustomBars.getBarsCount(stack);
-			if (amount == 0) return;
+			final var barX = x + 2;
+			var barIndex = new AtomicInteger(0);
 
-			for (int i = 0; i < amount; i++) {
-				var color = hasCustomBars.getBarColor(stack, i);
-				var progress = Math.max(Math.min(hasCustomBars.getBarProgress(stack, i), 1f), 0f);
-				var steps = Math.round(progress * 13f);
-				var barX = x + 2;
-				var barY = y + 13 - (i + (stack.isItemBarVisible()? 1 : 0)) * 2;
+			hasCustomBars.emitCustomBars(stack, (color, progress) -> {
+				var steps = Math.round(Math.max(Math.min(progress, 1f), 0f) * 13f);
+				var barY = y + 13 - (barIndex.get() + (stack.isItemBarVisible()? 1 : 0)) * 2;
 
 				self.fill(RenderLayer.getGuiOverlay(), barX, barY, barX + 13, barY + 2, -16777216);
 				self.fill(RenderLayer.getGuiOverlay(), barX, barY, barX + steps, barY + 1, color | 0xFF000000);
-			}
+
+				barIndex.addAndGet(1);
+			});
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package me.nahkd.amethystenergy.modules;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import me.nahkd.amethystenergy.AEUtils;
@@ -74,22 +75,16 @@ public class EnergyModule extends Module implements HasCustomBars {
 	}
 
 	@Override
-	public int getBarsCount(ItemStack stack) {
-		return 1;
-	}
+	public void emitCustomBars(ItemStack stack, BiConsumer<Integer, Float> emitter) {
+		if (!stack.hasNbt() || !stack.getNbt().contains(TAG_MODULE, NbtElement.COMPOUND_TYPE)) {
+			emitter.accept(ENERGY_BAR_COLOR, 0f);
+			return;
+		}
 
-	@Override
-	public int getBarColor(ItemStack stack, int index) {
-		return ENERGY_BAR_COLOR;
-	}
-
-	@Override
-	public float getBarProgress(ItemStack stack, int index) {
-		if (!stack.hasNbt() || !stack.getNbt().contains(TAG_MODULE, NbtElement.COMPOUND_TYPE)) return 0f;
 		var moduleData = stack.getSubNbt(TAG_MODULE);
 		var quality = moduleData.getInt(TAG_QUALITY);
 		var maxEnergy = getMaxEnergy(quality);
 		var currentEnergy = moduleData.getFloat(TAG_ENERGY);
-		return currentEnergy / maxEnergy;
+		emitter.accept(ENERGY_BAR_COLOR, currentEnergy / maxEnergy);
 	}
 }

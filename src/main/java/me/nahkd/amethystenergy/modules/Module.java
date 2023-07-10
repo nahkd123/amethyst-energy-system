@@ -1,11 +1,13 @@
 package me.nahkd.amethystenergy.modules;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttackContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleAttributeContext;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
+import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -58,6 +60,8 @@ public abstract class Module extends Item {
 	public void onApplyAttributes(ModuleAttributeContext ctx, ModuleInstance instance) {}
 	public void onItemDamage(ModuleUseContext ctx, ModuleInstance instance) {}
 	public void onAttack(ModuleAttackContext ctx, ModuleInstance instance) {}
+
+	public void emitModuleBars(AmethystToolInstance tool, ModuleInstance module, BiConsumer<Integer, Float> emitter) {}
 
 	@Override
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {

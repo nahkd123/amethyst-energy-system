@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 import com.google.common.collect.Multimap;
 
@@ -121,17 +122,7 @@ public class AmethystPickaxe extends PickaxeItem implements AmethystTool, HasCus
 	}
 
 	@Override
-	public int getBarsCount(ItemStack stack) {
-		return amethystGetBarsCount(stack);
-	}
-
-	@Override
-	public int getBarColor(ItemStack stack, int index) {
-		return amethystGetBarColor(stack, index);
-	}
-
-	@Override
-	public float getBarProgress(ItemStack stack, int index) {
-		return amethystGetBarProgress(stack, index);
+	public void emitCustomBars(ItemStack stack, BiConsumer<Integer, Float> emitter) {
+		amethystEmitCustomBars(stack, emitter);
 	}
 }

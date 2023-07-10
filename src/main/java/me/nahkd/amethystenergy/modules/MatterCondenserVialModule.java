@@ -1,11 +1,13 @@
 package me.nahkd.amethystenergy.modules;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import me.nahkd.amethystenergy.AEUtils;
 import me.nahkd.amethystenergy.blocks.AESBlocks;
 import me.nahkd.amethystenergy.items.HasCustomBars;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
+import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -93,19 +95,19 @@ public class MatterCondenserVialModule extends Module implements HasCustomBars {
 	}
 
 	@Override
-	public int getBarsCount(ItemStack stack) {
-		return 1;
-	}
+	public void emitCustomBars(ItemStack stack, BiConsumer<Integer, Float> emitter) {
+		if (!stack.hasNbt() || !stack.getNbt().contains(TAG_MODULE, NbtElement.COMPOUND_TYPE)) {
+			emitter.accept(CONDENSED_BAR_COLOR, 0f);
+			return;
+		}
 
-	@Override
-	public int getBarColor(ItemStack stack, int index) {
-		return CONDENSED_BAR_COLOR;
-	}
-
-	@Override
-	public float getBarProgress(ItemStack stack, int index) {
-		if (!stack.hasNbt() || !stack.getNbt().contains(TAG_MODULE, NbtElement.COMPOUND_TYPE)) return 0f;
 		var moduleData = stack.getSubNbt(TAG_MODULE);
-		return Math.max(Math.min(moduleData.getFloat(TAG_CONDENSED), 1f), 0f);
+		emitter.accept(CONDENSED_BAR_COLOR, Math.max(Math.min(moduleData.getFloat(TAG_CONDENSED), 1f), 0f));
+	}
+
+	@Override
+	public void emitModuleBars(AmethystToolInstance tool, ModuleInstance module, BiConsumer<Integer, Float> emitter) {
+		var current = Math.max(Math.min(module.getModuleData().getFloat(TAG_CONDENSED), 1f), 0f);
+		emitter.accept(CONDENSED_BAR_COLOR, current);
 	}
 }

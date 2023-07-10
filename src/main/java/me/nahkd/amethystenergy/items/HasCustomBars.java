@@ -1,9 +1,9 @@
 package me.nahkd.amethystenergy.items;
 
+import java.util.function.BiConsumer;
+
 import net.minecraft.item.ItemStack;
 
 public interface HasCustomBars {
-	public int getBarsCount(ItemStack stack);
-	public int getBarColor(ItemStack stack, int index);
-	public float getBarProgress(ItemStack stack, int index);
+	public void emitCustomBars(ItemStack stack, BiConsumer<Integer, Float> emitter);
 }
