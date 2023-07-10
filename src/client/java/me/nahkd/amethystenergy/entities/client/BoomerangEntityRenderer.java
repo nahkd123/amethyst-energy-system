@@ -1,8 +1,8 @@
-package me.nahkd.amethystenergy.entities.client.zhoop;
+package me.nahkd.amethystenergy.entities.client;
 
 import org.joml.Quaternionf;
 
-import me.nahkd.amethystenergy.entities.FlyingItemEntity;
+import me.nahkd.amethystenergy.entities.BoomerangEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory.Context;
@@ -10,21 +10,21 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class FlyingItemEntityRenderer extends EntityRenderer<FlyingItemEntity> {
+public class BoomerangEntityRenderer extends EntityRenderer<BoomerangEntity> {
 	private Context ctx;
 
-	public FlyingItemEntityRenderer(Context ctx) {
+	public BoomerangEntityRenderer(Context ctx) {
 		super(ctx);
 		this.ctx = ctx;
 	}
 
 	@Override
-	public Identifier getTexture(FlyingItemEntity entity) {
+	public Identifier getTexture(BoomerangEntity entity) {
 		return new Identifier("minecraft", "missingno");
 	}
 
 	@Override
-	public void render(FlyingItemEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+	public void render(BoomerangEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
 		var stack = entity.getStack();
 		if (stack.isEmpty()) return;
 

@@ -1,4 +1,4 @@
-package me.nahkd.amethystenergy.entities.client.zhoop;
+package me.nahkd.amethystenergy.entities.client;
 
 import org.joml.Quaternionf;
 

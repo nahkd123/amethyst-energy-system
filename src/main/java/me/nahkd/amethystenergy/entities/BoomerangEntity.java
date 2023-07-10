@@ -18,33 +18,33 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult.Type;
 import net.minecraft.world.World;
 
-public class FlyingItemEntity extends ProjectileEntity {
-	private static final TrackedData<ItemStack> STACK = DataTracker.registerData(FlyingItemEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
+public class BoomerangEntity extends ProjectileEntity {
+	private static final TrackedData<ItemStack> STACK = DataTracker.registerData(BoomerangEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 	private static final int FLYING_TIME = 20;
 
 	private int timeTicked = 0;
 	private float damage = 1f;
 
-	public FlyingItemEntity(EntityType<? extends FlyingItemEntity> type, World world) {
+	public BoomerangEntity(EntityType<? extends BoomerangEntity> type, World world) {
 		super(type, world);
 		setStack(ItemStack.EMPTY);
 	}
 
-	public FlyingItemEntity(World world) {
-		this(AmethystEntities.FLYING_ITEM, world);
+	public BoomerangEntity(World world) {
+		this(AmethystEntities.BOOMERANG, world);
 	}
 
-	public FlyingItemEntity(World world, double x, double y, double z) {
+	public BoomerangEntity(World world, double x, double y, double z) {
 		this(world);
 		setPos(x, y, z);
 	}
 
-	public FlyingItemEntity(World world, Entity owner) {
+	public BoomerangEntity(World world, Entity owner) {
 		this(world, owner.getX(), owner.getEyeY(), owner.getZ());
 		setOwner(owner);
 	}
 
-	public FlyingItemEntity(World world, ItemStack stack) {
+	public BoomerangEntity(World world, ItemStack stack) {
 		this(world);
 		setStack(stack);
 	}

@@ -2,7 +2,7 @@ package me.nahkd.amethystenergy.modules;
 
 import java.util.function.Consumer;
 
-import me.nahkd.amethystenergy.entities.FlyingItemEntity;
+import me.nahkd.amethystenergy.entities.BoomerangEntity;
 import me.nahkd.amethystenergy.modules.contexts.ModuleUseContext;
 import me.nahkd.amethystenergy.tools.AmethystToolInstance;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -54,7 +54,7 @@ public class PickmerangModule extends Module implements ToolUsable {
 		var newStack = ctx.getItemStack().copyAndEmpty();
 		newStack.damage(1, ctx.getUser(), e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 
-		var fi = new FlyingItemEntity(user.getWorld(), user);
+		var fi = new BoomerangEntity(user.getWorld(), user);
 		fi.setStack(newStack);
 		fi.setDamage(4f + Math.min((ticks - HOLD_TICKS) / 20f, 3f));
 		user.getWorld().spawnEntity(fi);
