@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " P ",
+        "BCB",
+        " P "
+    ],
+    "key": {
+        "C": { "item": "amethystenergy:condensed_amethyst_block" },
+        "B": { "item": "minecraft:amethyst_block" },
+        "P": { "item": "minecraft:piston" }
+    },
+    "result": {
+        "item": "amethystenergy:matter_condenser",
+        "count": 1
+    }
+}

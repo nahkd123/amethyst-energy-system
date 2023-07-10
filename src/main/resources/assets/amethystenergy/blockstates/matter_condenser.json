@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "condense=0": { "model": "amethystenergy:block/matter_condenser/level0" },
+        "condense=1": { "model": "amethystenergy:block/matter_condenser/level1" },
+        "condense=2": { "model": "amethystenergy:block/matter_condenser/level2" },
+        "condense=3": { "model": "amethystenergy:block/matter_condenser/level3" }
+    }
+}

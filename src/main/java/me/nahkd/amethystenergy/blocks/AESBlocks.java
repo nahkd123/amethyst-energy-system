@@ -28,6 +28,11 @@ public class AESBlocks {
 			.strength(1.5f)
 			.sounds(BlockSoundGroup.AMETHYST_BLOCK)
 			.requiresTool());
+	public static final MatterCondenser MATTER_CONDENSER = new MatterCondenser(FabricBlockSettings.create()
+			.mapColor(DyeColor.PURPLE)
+			.strength(1.2f)
+			.sounds(BlockSoundGroup.AMETHYST_BLOCK)
+			.ticksRandomly());
 
 	private static void register(String id, Block block) {
 		Registry.register(Registries.BLOCK, AmethystEnergy.id(id), block);
@@ -38,11 +43,13 @@ public class AESBlocks {
 		register("condensed_amethyst_block", CONDENSED_AMETHYST_BLOCK);
 		register("amethyst_glyph_block", AMETHYST_GLYPH_BLOCK);
 		register("amethyst_workbench", AMETHYST_WORKBENCH);
+		register("matter_condenser", MATTER_CONDENSER);
 	}
 
 	public static void addToGroup(FabricItemGroupEntries entries) {
 		entries.add(CONDENSED_AMETHYST_BLOCK);
 		entries.add(AMETHYST_GLYPH_BLOCK);
 		entries.add(AMETHYST_WORKBENCH);
+		entries.add(MATTER_CONDENSER);
 	}
 }

@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "amethystenergy:block/matter_condenser_1"
+    }
+}
