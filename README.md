@@ -1,26 +1,30 @@
-# Amethyst Energy System (AES)
+![Amethyst Energy System Banner](docs/banner.png)
+
+---
+
+# Amethyst Energy System
 _(Not to be confused with symmetrical encryption algorithm)_
 
-The main idea of this mod is to provide amethyst more usage, but you can also choose to branch out to amethyst tools from iron tools instead of going for diamond (and netherite) stuffs. The issue is: you have to find modules for your precious sword.
+Amethyst Energy System is a mod that provides more usage for amethyst shards, which doesn't have much use in vanilla gameplay (other than Spyglass).
 
 ## Download and install AES
-> **Note**: You need Fabric Loader 0.14.21+ for Minecraft 1.20.1 and Fabric API 0.83.0+.
+**Note**: You need [Fabric Loader 0.14.21+](https://fabricmc.net/use/installer/) for Minecraft 1.20.1 and [Fabric API 0.83.0+](https://modrinth.com/mod/fabric-api).
 
 Development version of AES is available for download [here](https://github.com/nahkd123/amethyst-energy-system/actions). Simply click on the top one, scroll down to "Artifacts" section and download "Artifacts". After that, extract artifacts and copy ``amethyst-energy-system.jar`` (not the one with ``-sources``!) to your ``mods/`` folder.
 
-## Amethyst Workbench
-An universal workbench for everything related to AES.
+## Quick start
+**Tip**: It's a good idea to install a mod that help you view recipes, like [JustEnoughItems](https://modrinth.com/mod/jei) for example.
 
-## Item Modules
-- Featherweight: Make your tool lighter (a.k.a increase attack speed).
-- Magic Durability: Redirect durability usage to energy module. If you ran out of energy, it will do nothing.
-- Matter Condenser Vial: Charge it to 100% and use it to upgrade modules' quality.
-- Energy Module: Stores Amethyst Energy (AE). Each Amethyst Shard provides 1 AE.
-- Glowing Blade (partially implemented): An attempt to mimic a sword from the hit game about the legend. I guess you already know what game that is.
-- Soulstealer: Do Purpris'h Challenges to upgrade this module. Obviously you must have this module installed in your hoe in order to do challenges.
-- Drill: Mine blocks faster. Can be applied to shovels, axes and pickaxes.
-- Pickmerang: Pickaxe version of magical boomerang.
-- _And more in the future!_
+Craft amethyst tools by surround iron tools with 8x Amethyst Shards. Then make 1x Amethyst Workbench, 4x Condensed Amethyst Blocks and 4x Amethyst Glyph Blocks. After that, create a multiblocks structure like below:
+
+![Multiblocks Structure](docs/multiblocks.png)
+_(sorry for dark image)_
+
+Open the workbench by... well... clicking on Amethyst Workbench. You'll be able to add modules, recharge your tools and upgrades them.
+
+**Note**: You need to have **at least** 1 Amethyst Shard present in your workbench in order to add/replace/remove your module.
+
+**Note**: Some modules may get destroyed when you remove/replace them.
 
 ## TODOs
 - [ ] Module texture overlay thingy.
