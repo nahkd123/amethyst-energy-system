@@ -3,7 +3,6 @@
 	"package": "me.nahkd.amethystenergy.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin",
 		"ItemStackMixin"
 	],
 	"injectors": {
